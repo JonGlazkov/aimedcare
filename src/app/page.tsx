@@ -1,18 +1,20 @@
-import { SignInButton } from "@/components/auth/signin-button";
-import { SignOutButton } from "@/components/auth/signout-button";
-import { UserMenu } from "@/components/auth/user-menu";
-import { Button } from "@/components/ui/button";
-import { auth } from "@/lib/auth";
-import { ArrowRight, LogIn, LogOut } from "lucide-react";
-import Link from "next/link";
+import { SignInButton } from '@/components/auth/signin-button'
+import { SignOutButton } from '@/components/auth/signout-button'
+import { UserMenu } from '@/components/auth/user-menu'
+import { Button } from '@/components/ui/button'
+import { auth } from '@/lib/auth'
+import { ArrowRight, LogIn, LogOut } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function Home() {
-  const session = await auth();
+  const session = await auth()
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
       <div className="container flex flex-col items-center justify-center gap-2">
         <h1 className="text-2xl font-bold">Home</h1>
-        <p className="text-sm text-muted-foreground">Start modifying this page to get started.</p>
+        <p className="text-sm text-muted-foreground">
+          Start modifying this page to get started.
+        </p>
         <div className="flex gap-2">
           <Link
             prefetch={false}
@@ -49,5 +51,5 @@ export default async function Home() {
         </div>
       </div>
     </div>
-  );
+  )
 }
