@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-import "./src/env/index.js"
+import "./src/env/index.ts";
 
 const nextConfig = {
   // if you want to use standalone output, uncomment the following line
