@@ -10,7 +10,7 @@ This project is a web application template with authentication features, using N
 - **Tailwind CSS**: Customizable utility-first CSS framework
 - **shadcn/ui**: Functional UI components
 - **Prisma**: Efficient database operations with a type-safe ORM
-- **PostgreSQL**: Reliable relational database
+- **SQLite**: Lightweight and reliable relational database for development and testing
 - **Docker**: Database containerization for local development
 - **T3 Env**: Type-safe environment variables with validation
 
