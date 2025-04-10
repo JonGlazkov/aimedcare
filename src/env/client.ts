@@ -1,4 +1,4 @@
-import { createEnv } from "@t3-oss/env-nextjs";
+import { createEnv } from '@t3-oss/env-nextjs'
 
 export const env = createEnv({
   /**
@@ -19,4 +19,4 @@ export const env = createEnv({
    * Treat empty strings as undefined
    */
   emptyStringAsUndefined: true,
-});
+})

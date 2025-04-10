@@ -1,12 +1,12 @@
-import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
+import { createEnv } from '@t3-oss/env-nextjs'
+import { z } from 'zod'
 
 export const env = createEnv({
   /**
    * Define schema for server-side environment variables
    */
   server: {
-    NODE_ENV: z.enum(["development", "test", "production"]),
+    NODE_ENV: z.enum(['development', 'test', 'production']),
     AUTH_SECRET: z.string().min(1),
     DATABASE_URL: z.string().url(),
     AUTH_GITHUB_ID: z.string().min(1),
@@ -30,4 +30,4 @@ export const env = createEnv({
    * Treat empty strings as undefined
    */
   emptyStringAsUndefined: true,
-});
+})
