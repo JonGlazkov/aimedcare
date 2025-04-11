@@ -7,7 +7,7 @@ export default function NotFound() {
       <p className="text-accent-foreground">
         {' '}
         Voltar para o{' '}
-        <Link href="/" className="dark:sky-400 text-sky-500">
+        <Link href="/app/dashboard" className="dark:sky-400 text-sky-500">
           Dashboard
         </Link>
       </p>

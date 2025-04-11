@@ -14,10 +14,10 @@ export function Header() {
         <Separator orientation="vertical" className="h-6" />
 
         <nav className="flex items-center space-x-4 lg:space-x-6">
-          <NavLink href="/">
+          <NavLink href="/app/dashboard">
             <Home className="size-4" /> Dashboard
           </NavLink>
-          <NavLink href="/consults">
+          <NavLink href="/app/consults">
             <Activity className="size-4" /> Consultas
           </NavLink>
         </nav>

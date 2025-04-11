@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Search, X } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -24,7 +24,11 @@ const consultsFilterSchema = z.object({
 type ConsultsFilterSchema = z.infer<typeof consultsFilterSchema>
 
 export default function ConsultsTableFilter() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams.toString())
 
   const orderId = searchParams.get('orderId')
   const customerName = searchParams.get('customerName')
@@ -45,44 +49,46 @@ export default function ConsultsTableFilter() {
     orderId,
     status,
   }: ConsultsFilterSchema) {
-    setSearchParams((state) => {
-      if (orderId) {
-        state.set('orderId', orderId)
-      } else {
-        state.delete('orderId')
-      }
+    if (orderId) {
+      params.set('orderId', orderId)
+    } else {
+      params.delete('orderId')
+    }
 
-      if (customerName) {
-        state.set('customerName', customerName)
-      } else {
-        state.delete('customerName')
-      }
+    if (customerName) {
+      params.set('customerName', customerName)
+    } else {
+      params.delete('customerName')
+    }
 
-      if (status) {
-        state.set('status', status)
-      } else {
-        state.delete('status')
-      }
+    if (status) {
+      params.set('status', status)
+    } else {
+      params.delete('status')
+    }
 
-      state.set('page', '1')
-      return state
-    })
+    params.set('page', '1')
+
+    router.prefetch(pathname + '?' + params.toString())
+    router.push(pathname + '?' + params.toString())
+    return params.toString()
   }
 
   function handleClearFilters() {
-    setSearchParams((state) => {
-      state.delete('orderId')
-      state.delete('customerName')
-      state.delete('status')
-      state.set('page', '1')
+    params.delete('orderId')
+    params.delete('customerName')
+    params.delete('status')
+    params.set('page', '1')
 
-      return state
-    })
     reset({
       orderId: '',
       customerName: '',
       status: 'all',
     })
+
+    router.prefetch(pathname + '?' + params.toString())
+    router.push(pathname + '?' + params.toString())
+    return params.toString()
   }
 
   return (
@@ -132,7 +138,7 @@ export default function ConsultsTableFilter() {
       />
 
       <Button type="submit" variant="secondary" size="xs">
-        <Search className="h-4 w-4" />
+        <Search className="size-4" />
         Filtrar resultados
       </Button>
       <Button
@@ -141,7 +147,7 @@ export default function ConsultsTableFilter() {
         variant="outline"
         size="xs"
       >
-        <X className="h-4 w-4" />
+        <X className="size-4" />
         Remover filtros
       </Button>
     </form>

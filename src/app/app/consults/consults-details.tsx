@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
-import { getConsultDetails } from '@/api/get-consult-detailts'
+import { getConsultDetails } from '@/app/api/get-consult-detailts/route'
 import { ConsultStatus } from '@/components/consult-status'
 import {
   DialogContent,

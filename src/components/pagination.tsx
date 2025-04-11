@@ -1,32 +1,20 @@
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from 'lucide-react'
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 
-import { Button } from './ui/button'
+import { Button } from "./ui/button";
 
 export interface PaginationProps {
-  pageIndex: number
-  totalCount: number
-  perPage: number
-  onPageChange: (pageIndex: number) => Promise<void> | void
+  pageIndex: number;
+  totalCount: number;
+  perPage: number;
+  onPageChange: (pageIndex: number) => Promise<void> | void;
 }
 
-export function Pagination({
-  pageIndex,
-  perPage,
-  totalCount,
-  onPageChange,
-}: PaginationProps) {
-  const totalPages = Math.ceil(totalCount / perPage) || 1
+export function Pagination({ pageIndex, perPage, totalCount, onPageChange }: PaginationProps) {
+  const totalPages = Math.ceil(totalCount / perPage) || 1;
 
   return (
     <div className="flex items-center justify-between">
-      <span className="text-sm text-muted-foreground">
-        Total de {totalCount} consulta(s)
-      </span>
+      <span className="text-sm text-muted-foreground">Total de {totalCount} consulta(s)</span>
 
       <div className="flex items-center gap-6 lg:gap-8">
         <div className="text-sm font-medium">
@@ -36,41 +24,41 @@ export function Pagination({
           <Button
             onClick={() => onPageChange(0)}
             variant="outline"
-            className="padding-0 h-8 w-8"
+            className="padding-0 size-8"
             disabled={pageIndex === 0}
           >
-            <ChevronsLeft className="h-4 w-4" />
+            <ChevronsLeft className="size-4" />
             <span className="sr-only">Primeira página</span>
           </Button>
           <Button
             onClick={() => onPageChange(pageIndex - 1)}
             variant="outline"
-            className="padding-0 h-8 w-8"
+            className="padding-0 size-8"
             disabled={pageIndex === 0}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="size-4" />
             <span className="sr-only">Página anterior</span>
           </Button>
           <Button
             onClick={() => onPageChange(pageIndex + 1)}
             variant="outline"
-            className="padding-0 h-8 w-8"
+            className="padding-0 size-8"
             disabled={totalPages <= pageIndex + 1}
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="size-4" />
             <span className="sr-only">Próxima página</span>
           </Button>
           <Button
             onClick={() => onPageChange(totalPages - 1)}
             variant="outline"
-            className="padding-0 h-8 w-8"
+            className="padding-0 size-8"
             disabled={totalPages <= pageIndex + 1}
           >
-            <ChevronsRight className="h-4 w-4" />
+            <ChevronsRight className="size-4" />
             <span className="sr-only">Ultima página</span>
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }

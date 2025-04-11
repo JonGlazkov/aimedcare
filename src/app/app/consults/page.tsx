@@ -1,4 +1,6 @@
+'use client'
 import { useQuery } from '@tanstack/react-query'
+import { useSearchParams } from 'next/navigation'
 import { Helmet } from 'react-helmet-async'
 import { z } from 'zod'
 
@@ -12,12 +14,12 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { useSearchParams } from 'next/navigation'
 import ConsultsTableFilter from './consults-table-filter'
 import ConsultsTableRow from './consults-table-row'
 
-export function Consults() {
-  const [searchParams] = useSearchParams()
+export default function Consults() {
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams.toString())
 
   const pageIndex = z.coerce
     .number()
@@ -40,11 +42,7 @@ export function Consults() {
   })
 
   function handlePagination(pageIndex: number) {
-    setSearchParams((state) => {
-      state.set('page', String(pageIndex + 1))
-
-      return state
-    })
+    return params.set('page', String(pageIndex + 1))
   }
 
   return (
