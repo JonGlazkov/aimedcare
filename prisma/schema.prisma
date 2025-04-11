@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../prisma/generated"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  MANAGER
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  AWAITING_PAYMENT
+  CANCELLED
+  COMPLETED
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  image         String?
+  phone         String?
+  emailVerified DateTime? @map("email_verified")
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  appointment Appointment[]
+  clinic      Clinic?
+  account     Account[]
+  session     Session[]
+
+  @@map("users")
+}
+
+model Clinic {
+  id            String          @id @default(cuid())
+  name          String
+  description   String?
+  address       String?
+  phone         String?
+  managerId     String?         @unique @map("manager_id")
+  manager       User?           @relation(fields: [managerId], references: [id], onDelete: SetNull)
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @default(now()) @updatedAt @map("updated_at")
+  appointments  Appointment[]
+  clinicService ClinicService[]
+
+  @@map("clinics")
+}
+
+model Appointment {
+  id                 String               @id @default(cuid())
+  doctorName         String               @map("doctor_name")
+  patientName        String               @map("patient_name")
+  totalPriceInCents  Int                  @map("total_price_in_cents")
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @default(now()) @updatedAt
+  clinicId           String?              @unique @map("clinic_id")
+  userId             String?              @unique @map("user_id")
+  user               User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
+  clinic             Clinic?              @relation(fields: [clinicId], references: [id], onDelete: SetNull)
+  appointmentService AppointmentService[]
+
+  @@map("appointments")
+}
+
+model AppointmentService {
+  id            String         @id @default(cuid())
+  priceInCents  Int            @map("price_in_cents")
+  quantity      Int            @default(1)
+  serviceId     String?        @map("service_id")
+  appointmentId String         @map("appointment_id")
+  service       ClinicService? @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  appointment   Appointment    @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+
+  @@map("appointment_services")
+}
+
+model ClinicService {
+  id                 String               @id @default(cuid())
+  name               String
+  description        String?
+  priceInCents       Int                  @map("price_in_cents")
+  clinicId           String               @map("clinic_id")
+  clinic             Clinic               @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  createdAt          DateTime             @default(now()) @map("created_at")
+  updatedAt          DateTime             @default(now()) @updatedAt @map("updated_at")
+  appointmentService AppointmentService[]
+
+  @@map("clinic_services")
+}
