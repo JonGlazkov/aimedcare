@@ -1,15 +1,17 @@
+'use client'
+
 import { Button, ButtonProps } from '@/components/ui/button'
-import { signIn } from '@/lib/auth'
+import { signIn } from 'next-auth/react'
 
 export const SignInButton = (props: ButtonProps) => {
   return (
-    <form
-      action={async () => {
-        'use server'
+    <Button
+      {...props}
+      onClick={async () => {
         await signIn()
       }}
     >
-      <Button {...props} />
-    </form>
+      {props.children}
+    </Button>
   )
 }

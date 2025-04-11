@@ -1,15 +1,17 @@
+'use client'
+
 import { Button, ButtonProps } from '@/components/ui/button'
-import { signOut } from '@/lib/auth'
+import { signOut } from 'next-auth/react'
 
 export const SignOutButton = (props: ButtonProps) => {
   return (
-    <form
-      action={async () => {
-        'use server'
+    <Button
+      {...props}
+      onClick={async () => {
         await signOut()
       }}
     >
-      <Button {...props} />
-    </form>
+      {props.children}
+    </Button>
   )
 }
