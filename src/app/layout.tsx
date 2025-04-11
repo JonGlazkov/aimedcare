@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { SessionProvider } from 'next-auth/react'
+
+import { AppProvider } from '@/components/providers/app-provider'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -14,11 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <SessionProvider>
-        <body className="flex min-h-svh flex-col" suppressHydrationWarning>
+      <body className="flex min-h-svh flex-col" suppressHydrationWarning>
+        <AppProvider>
           <main className="flex flex-1 flex-col">{children}</main>
-        </body>
-      </SessionProvider>
+        </AppProvider>
+      </body>
     </html>
   )
 }

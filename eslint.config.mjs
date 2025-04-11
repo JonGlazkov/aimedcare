@@ -12,7 +12,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.config({extends: ["next/core-web-vitals", "@rocketseat/eslint-config/next"]}),
+  ...compat.config({extends: ["next/core-web-vitals", "next/typescript", '@rocketseat/eslint-config/next']}),
   {
     ignores: [
       '**/.next/',
@@ -27,7 +27,6 @@ const eslintConfig = [
     rules: {
       ...tailwind.configs.recommended.rules,
       'tailwindcss/classnames-order': [
-        'warn',
         {
           callees: ['clsx', 'cn', 'twMerge']
         }
