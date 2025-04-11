@@ -12,7 +12,7 @@ export function AppProvider({ children }: PropsWithChildren) {
   return (
     <SessionProvider>
       <HelmetProvider>
-        <ThemeProvider storageKey="my-clinic-theme" defaultTheme="dark">
+        <ThemeProvider storageKey="my-clinic-theme" defaultTheme="light">
           <Helmet titleTemplate="%s | xon.clinic" />
           <SonnerToaster richColors />
           <Toaster />

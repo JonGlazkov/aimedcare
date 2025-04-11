@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query'
 import { subDays } from 'date-fns'
 import { LineChartIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
@@ -13,7 +12,6 @@ import {
 } from 'recharts'
 import colors from 'tailwindcss/colors'
 
-import { getDailyRevenueInPeriod } from '@/app/api/get-daily-revenue-in-period/route'
 import {
   Card,
   CardContent,
@@ -30,15 +28,15 @@ import {
 import { DateRangePicker } from '@/components/ui/date-range-picker'
 import { Label } from '@/components/ui/label'
 
-// const data = [
-//   { date: '10/12', revenue: 1200 },
-//   { date: '11/12', revenue: 800 },
-//   { date: '12/12', revenue: 900 },
-//   { date: '13/12', revenue: 400 },
-//   { date: '14/12', revenue: 2300 },
-//   { date: '15/12', revenue: 8400 },
-//   { date: '16/12', revenue: 530 },
-// ]
+const data = [
+  { date: '10/12', revenue: 1200 },
+  { date: '11/12', revenue: 800 },
+  { date: '12/12', revenue: 900 },
+  { date: '13/12', revenue: 400 },
+  { date: '14/12', revenue: 2300 },
+  { date: '15/12', revenue: 8400 },
+  { date: '16/12', revenue: 530 },
+]
 
 const chartConfig = {
   receipt: {
@@ -53,21 +51,21 @@ export function RevenueChart() {
     to: new Date(),
   })
 
-  const { data: dailyRevenueInPeriod } = useQuery({
-    queryKey: ['metrics', 'daily-revenue-in-period', dateRange],
-    queryFn: () =>
-      getDailyRevenueInPeriod({
-        from: dateRange?.from,
-        to: dateRange?.to,
-      }),
-  })
+  // const { data: dailyRevenueInPeriod } = useQuery({
+  //   queryKey: ['metrics', 'daily-revenue-in-period', dateRange],
+  //   queryFn: () =>
+  //     getDailyRevenueInPeriod({
+  //       from: dateRange?.from,
+  //       to: dateRange?.to,
+  //     }),
+  // })
 
   const chartData = useMemo(() => {
-    return dailyRevenueInPeriod?.map((item) => ({
+    return data?.map((item) => ({
       date: item.date,
-      receipt: item.receipt / 100,
+      receipt: item.revenue,
     }))
-  }, [dailyRevenueInPeriod])
+  }, [data])
 
   return (
     <Card className="col-span-6">
@@ -88,7 +86,7 @@ export function RevenueChart() {
         </div>
       </CardHeader>
       <CardContent>
-        {dailyRevenueInPeriod && (
+        {data && (
           <ResponsiveContainer width="100%" height={240}>
             <ChartContainer config={chartConfig}>
               <LineChart

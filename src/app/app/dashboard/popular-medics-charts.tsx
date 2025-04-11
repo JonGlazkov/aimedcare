@@ -1,9 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
 import { BarChart, TrendingUp } from 'lucide-react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 import colors from 'tailwindcss/colors'
 
-import { getPopularMedics } from '@/app/api/get-popular-medics/route'
 import {
   Card,
   CardContent,
@@ -12,13 +10,13 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 
-// const data = [
-//   { medicName: 'Michele Rigon', amount: 53 },
-//   { medicName: 'Arnóbio Pacheco', amount: 42 },
-//   { medicName: 'Marcial Bretas', amount: 25 },
-//   { medicName: 'Gabriela Lima', amount: 17 },
-//   { medicName: 'Jõao das Neves', amount: 29 },
-// ]
+const data = [
+  { medicName: 'Michele Rigon', amount: 53 },
+  { medicName: 'Arnóbio Pacheco', amount: 42 },
+  { medicName: 'Marcial Bretas', amount: 25 },
+  { medicName: 'Gabriela Lima', amount: 17 },
+  { medicName: 'Jõao das Neves', amount: 29 },
+]
 
 const COLORS = [
   colors.sky[500],
@@ -29,10 +27,10 @@ const COLORS = [
 ]
 
 export function PopularMedicsChart() {
-  const { data: popularMedics } = useQuery({
-    queryFn: getPopularMedics,
-    queryKey: ['metrics', 'popular-medics'],
-  })
+  // const { data: popularMedics } = useQuery({
+  //   queryFn: getPopularMedics,
+  //   queryKey: ['metrics', 'popular-medics'],
+  // })
 
   return (
     <Card className="col-span-3">
@@ -45,13 +43,13 @@ export function PopularMedicsChart() {
         </div>
       </CardHeader>
       <CardContent>
-        {popularMedics && (
+        {data && (
           <ResponsiveContainer width="100%" height={240}>
             <PieChart style={{ fontSize: 12 }}>
               <Pie
-                data={popularMedics}
+                data={data}
                 dataKey="amount"
-                nameKey="product"
+                nameKey="medicName"
                 cx="50%"
                 cy="50%"
                 outerRadius={86}
@@ -80,17 +78,17 @@ export function PopularMedicsChart() {
                       textAnchor={x > cx ? 'start' : 'end'}
                       dominantBaseline="central"
                     >
-                      {popularMedics[index].product.length > 16
-                        ? popularMedics[index].product
+                      {data[index].medicName.length > 16
+                        ? data[index].medicName
                             .substring(0, 12)
                             .concat('...')
-                        : popularMedics[index].product}{' '}
+                        : data[index].medicName}{' '}
                       ({value})
                     </text>
                   )
                 }}
               >
-                {popularMedics.map((_, index) => {
+                {data.map((_, index) => {
                   return (
                     <Cell
                       key={`cell-${index}`}

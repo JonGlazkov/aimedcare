@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 
 import { Header } from '@/components/header'
 
-export function AppLayout({ children }: PropsWithChildren) {
+export default function AppLayout({ children }: PropsWithChildren) {
   
 
   // useEffect(() => {

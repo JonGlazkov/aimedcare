@@ -1,16 +1,17 @@
+'use client'
 import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { registerClinic } from '@/app/api/register-clinic/route'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ToastAction } from '@/components/ui/toast'
 import { useToast } from '@/hooks/use-toast'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation'
 
 const signUpForm = z.object({
   email: z.string().email(),
@@ -18,8 +19,8 @@ const signUpForm = z.object({
 
 type SignUpForm = z.infer<typeof signUpForm>
 
-export function SignIn() {
-  const [searchParams] = useSearchParams()
+export default function SignIn() {
+  const searchParams = useSearchParams()
   const { toast } = useToast()
 
   const {
@@ -33,7 +34,31 @@ export function SignIn() {
   })
 
   const { mutateAsync: authenticate } = useMutation({
-    mutationFn: registerClinic,
+    mutationFn: async (data: SignUpForm) => {
+      signIn('credentials', {
+        email: data.email,
+        redirect: false,
+      }).then((response) => {
+        if (response?.error) {
+          throw new Error(response.error)
+        }
+        if (response?.ok) {
+          toast({
+            title: 'E-mail enviado com sucesso',
+            description: 'Cheque seu e-mail para acessar o painel',
+            variant: 'success',
+            action: (
+              <ToastAction
+                altText="Acessar painel"
+                onClick={() => redirect('/dashboard')}
+              >
+                Acessar painel
+              </ToastAction>
+            ),
+          })
+        }
+      })
+    },
   })
 
   const handleSignUp = async (data: SignUpForm) => {
@@ -72,7 +97,7 @@ export function SignIn() {
       <Helmet title="Login" />
       <div className="p-8">
         <Button asChild variant="outline" className="absolute right-8 top-8">
-          <Link href="/sign-up">Nova clínica</Link>
+          <Link href="/auth/sign-up">Nova clínica</Link>
         </Button>
 
         <div className="flex w-[350px] flex-col justify-center gap-6">

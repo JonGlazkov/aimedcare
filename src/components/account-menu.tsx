@@ -1,3 +1,4 @@
+'use client'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Building, ChevronDown, LogOut } from 'lucide-react'
 
@@ -5,6 +6,7 @@ import { getManagedClinic } from '@/app/api/get-managed-clinic/route'
 import { getProfile } from '@/app/api/get-profile/route'
 
 import { signOut } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 import ClinicProfileDialog from './clinic-profile-dialog'
 import { Button } from './ui/button'
 import { Dialog, DialogTrigger } from './ui/dialog'
@@ -19,7 +21,6 @@ import {
 import { Skeleton } from './ui/skeleton'
 
 export function AccountMenu() {
-  const navigate = useNavigate()
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
@@ -33,9 +34,9 @@ export function AccountMenu() {
   })
 
   const { mutateAsync: signOutFn, isPending: isSigningOut } = useMutation({
-    mutationFn: signOut,
+    mutationFn:() => signOut({ redirect: true }),
     onSuccess: () => {
-      navigate('/sign-in', { replace: true })
+      redirect('/auth/sign-in')
     },
   })
 

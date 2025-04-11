@@ -1,3 +1,4 @@
+'use client'
 import { Helmet } from 'react-helmet-async'
 
 import { ConsultsChart } from './consults-chart'
@@ -9,7 +10,7 @@ import { PopularMedicsChart } from './popular-medics-charts'
 import { PopularSpecialtiesChart } from './popular-specialties'
 import { RevenueChart } from './revenue-chart'
 
-export function Dashboard() {
+export default function Dashboard() {
   return (
     <>
       <Helmet title="Dashboard" />
