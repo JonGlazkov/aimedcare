@@ -75,30 +75,46 @@ model User {
   image         String?
   phone         String?
   emailVerified DateTime? @map("email_verified")
-  role          Role      @default(USER)
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
 
-  appointment Appointment[]
-  clinic      Clinic?
-  account     Account[]
-  session     Session[]
+  appointment           Appointment[]
+  clinic                Clinic?
+  account               Account[]
+  session               Session[]
+  UserClinicAssociation UserClinicAssociation[]
 
   @@map("users")
 }
 
+model UserClinicAssociation {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  clinicId  String   @map("clinic_id")
+  role      Role     @default(USER)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clinic Clinic @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, clinicId])
+  @@map("user_clinic_associations")
+}
+
 model Clinic {
-  id            String          @id @default(cuid())
-  name          String
-  description   String?
-  address       String?
-  phone         String?
-  managerId     String?         @unique @map("manager_id")
-  manager       User?           @relation(fields: [managerId], references: [id], onDelete: SetNull)
-  createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime        @default(now()) @updatedAt @map("updated_at")
-  appointments  Appointment[]
-  clinicService ClinicService[]
+  id                    String                  @id @default(cuid())
+  name                  String
+  description           String?
+  address               String?
+  phone                 String?
+  managerId             String?                 @unique @map("manager_id")
+  manager               User?                   @relation(fields: [managerId], references: [id], onDelete: SetNull)
+  createdAt             DateTime                @default(now()) @map("created_at")
+  updatedAt             DateTime                @default(now()) @updatedAt @map("updated_at")
+  appointments          Appointment[]
+  clinicService         ClinicService[]
+  userClinicAssociation UserClinicAssociation[]
 
   @@map("clinics")
 }

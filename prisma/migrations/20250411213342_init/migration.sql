@@ -39,9 +39,20 @@ CREATE TABLE "users" (
     "image" TEXT,
     "phone" TEXT,
     "email_verified" DATETIME,
-    "role" TEXT NOT NULL DEFAULT 'USER',
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "user_clinic_associations" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "user_id" TEXT NOT NULL,
+    "clinic_id" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT 'USER',
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "user_clinic_associations_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "user_clinic_associations_clinic_id_fkey" FOREIGN KEY ("clinic_id") REFERENCES "clinics" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -105,6 +116,9 @@ CREATE UNIQUE INDEX "verification_tokens_identifier_token_key" ON "verification_
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_clinic_associations_user_id_clinic_id_key" ON "user_clinic_associations"("user_id", "clinic_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "clinics_manager_id_key" ON "clinics"("manager_id");

@@ -34,6 +34,11 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model UserClinicAssociation
+ * 
+ */
+export type UserClinicAssociation = $Result.DefaultSelection<Prisma.$UserClinicAssociationPayload>
+/**
  * Model Clinic
  * 
  */
@@ -252,6 +257,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userClinicAssociation`: Exposes CRUD operations for the **UserClinicAssociation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserClinicAssociations
+    * const userClinicAssociations = await prisma.userClinicAssociation.findMany()
+    * ```
+    */
+  get userClinicAssociation(): Prisma.UserClinicAssociationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.clinic`: Exposes CRUD operations for the **Clinic** model.
@@ -736,6 +751,7 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     User: 'User',
+    UserClinicAssociation: 'UserClinicAssociation',
     Clinic: 'Clinic',
     Appointment: 'Appointment',
     AppointmentService: 'AppointmentService',
@@ -758,7 +774,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "clinic" | "appointment" | "appointmentService" | "clinicService"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "userClinicAssociation" | "clinic" | "appointment" | "appointmentService" | "clinicService"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1055,6 +1071,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserClinicAssociation: {
+        payload: Prisma.$UserClinicAssociationPayload<ExtArgs>
+        fields: Prisma.UserClinicAssociationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserClinicAssociationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserClinicAssociationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>
+          }
+          findFirst: {
+            args: Prisma.UserClinicAssociationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserClinicAssociationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>
+          }
+          findMany: {
+            args: Prisma.UserClinicAssociationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>[]
+          }
+          create: {
+            args: Prisma.UserClinicAssociationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>
+          }
+          createMany: {
+            args: Prisma.UserClinicAssociationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserClinicAssociationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>[]
+          }
+          delete: {
+            args: Prisma.UserClinicAssociationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>
+          }
+          update: {
+            args: Prisma.UserClinicAssociationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserClinicAssociationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserClinicAssociationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserClinicAssociationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserClinicAssociationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserClinicAssociationPayload>
+          }
+          aggregate: {
+            args: Prisma.UserClinicAssociationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserClinicAssociation>
+          }
+          groupBy: {
+            args: Prisma.UserClinicAssociationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserClinicAssociationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserClinicAssociationCountArgs<ExtArgs>
+            result: $Utils.Optional<UserClinicAssociationCountAggregateOutputType> | number
           }
         }
       }
@@ -1442,6 +1532,7 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     user?: UserOmit
+    userClinicAssociation?: UserClinicAssociationOmit
     clinic?: ClinicOmit
     appointment?: AppointmentOmit
     appointmentService?: AppointmentServiceOmit
@@ -1543,12 +1634,14 @@ export namespace Prisma {
     appointment: number
     account: number
     session: number
+    UserClinicAssociation: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointment?: boolean | UserCountOutputTypeCountAppointmentArgs
     account?: boolean | UserCountOutputTypeCountAccountArgs
     session?: boolean | UserCountOutputTypeCountSessionArgs
+    UserClinicAssociation?: boolean | UserCountOutputTypeCountUserClinicAssociationArgs
   }
 
   // Custom InputTypes
@@ -1583,6 +1676,13 @@ export namespace Prisma {
     where?: SessionWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserClinicAssociationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserClinicAssociationWhereInput
+  }
+
 
   /**
    * Count Type ClinicCountOutputType
@@ -1591,11 +1691,13 @@ export namespace Prisma {
   export type ClinicCountOutputType = {
     appointments: number
     clinicService: number
+    userClinicAssociation: number
   }
 
   export type ClinicCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointments?: boolean | ClinicCountOutputTypeCountAppointmentsArgs
     clinicService?: boolean | ClinicCountOutputTypeCountClinicServiceArgs
+    userClinicAssociation?: boolean | ClinicCountOutputTypeCountUserClinicAssociationArgs
   }
 
   // Custom InputTypes
@@ -1621,6 +1723,13 @@ export namespace Prisma {
    */
   export type ClinicCountOutputTypeCountClinicServiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClinicServiceWhereInput
+  }
+
+  /**
+   * ClinicCountOutputType without action
+   */
+  export type ClinicCountOutputTypeCountUserClinicAssociationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserClinicAssociationWhereInput
   }
 
 
@@ -4898,7 +5007,6 @@ export namespace Prisma {
     image: string | null
     phone: string | null
     emailVerified: Date | null
-    role: $Enums.Role | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4910,7 +5018,6 @@ export namespace Prisma {
     image: string | null
     phone: string | null
     emailVerified: Date | null
-    role: $Enums.Role | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4922,7 +5029,6 @@ export namespace Prisma {
     image: number
     phone: number
     emailVerified: number
-    role: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4936,7 +5042,6 @@ export namespace Prisma {
     image?: true
     phone?: true
     emailVerified?: true
-    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4948,7 +5053,6 @@ export namespace Prisma {
     image?: true
     phone?: true
     emailVerified?: true
-    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4960,7 +5064,6 @@ export namespace Prisma {
     image?: true
     phone?: true
     emailVerified?: true
-    role?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5045,7 +5148,6 @@ export namespace Prisma {
     image: string | null
     phone: string | null
     emailVerified: Date | null
-    role: $Enums.Role
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -5074,13 +5176,13 @@ export namespace Prisma {
     image?: boolean
     phone?: boolean
     emailVerified?: boolean
-    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     appointment?: boolean | User$appointmentArgs<ExtArgs>
     clinic?: boolean | User$clinicArgs<ExtArgs>
     account?: boolean | User$accountArgs<ExtArgs>
     session?: boolean | User$sessionArgs<ExtArgs>
+    UserClinicAssociation?: boolean | User$UserClinicAssociationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5091,7 +5193,6 @@ export namespace Prisma {
     image?: boolean
     phone?: boolean
     emailVerified?: boolean
-    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -5103,7 +5204,6 @@ export namespace Prisma {
     image?: boolean
     phone?: boolean
     emailVerified?: boolean
-    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -5115,17 +5215,17 @@ export namespace Prisma {
     image?: boolean
     phone?: boolean
     emailVerified?: boolean
-    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "phone" | "emailVerified" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "phone" | "emailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointment?: boolean | User$appointmentArgs<ExtArgs>
     clinic?: boolean | User$clinicArgs<ExtArgs>
     account?: boolean | User$accountArgs<ExtArgs>
     session?: boolean | User$sessionArgs<ExtArgs>
+    UserClinicAssociation?: boolean | User$UserClinicAssociationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5138,6 +5238,7 @@ export namespace Prisma {
       clinic: Prisma.$ClinicPayload<ExtArgs> | null
       account: Prisma.$AccountPayload<ExtArgs>[]
       session: Prisma.$SessionPayload<ExtArgs>[]
+      UserClinicAssociation: Prisma.$UserClinicAssociationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5146,7 +5247,6 @@ export namespace Prisma {
       image: string | null
       phone: string | null
       emailVerified: Date | null
-      role: $Enums.Role
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -5547,6 +5647,7 @@ export namespace Prisma {
     clinic<T extends User$clinicArgs<ExtArgs> = {}>(args?: Subset<T, User$clinicArgs<ExtArgs>>): Prisma__ClinicClient<$Result.GetResult<Prisma.$ClinicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     account<T extends User$accountArgs<ExtArgs> = {}>(args?: Subset<T, User$accountArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     session<T extends User$sessionArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    UserClinicAssociation<T extends User$UserClinicAssociationArgs<ExtArgs> = {}>(args?: Subset<T, User$UserClinicAssociationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5582,7 +5683,6 @@ export namespace Prisma {
     readonly image: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'DateTime'>
-    readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -6062,6 +6162,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.UserClinicAssociation
+   */
+  export type User$UserClinicAssociationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    where?: UserClinicAssociationWhereInput
+    orderBy?: UserClinicAssociationOrderByWithRelationInput | UserClinicAssociationOrderByWithRelationInput[]
+    cursor?: UserClinicAssociationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserClinicAssociationScalarFieldEnum | UserClinicAssociationScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6077,6 +6201,1083 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserClinicAssociation
+   */
+
+  export type AggregateUserClinicAssociation = {
+    _count: UserClinicAssociationCountAggregateOutputType | null
+    _min: UserClinicAssociationMinAggregateOutputType | null
+    _max: UserClinicAssociationMaxAggregateOutputType | null
+  }
+
+  export type UserClinicAssociationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    clinicId: string | null
+    role: $Enums.Role | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserClinicAssociationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    clinicId: string | null
+    role: $Enums.Role | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserClinicAssociationCountAggregateOutputType = {
+    id: number
+    userId: number
+    clinicId: number
+    role: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserClinicAssociationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    clinicId?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserClinicAssociationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    clinicId?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserClinicAssociationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    clinicId?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserClinicAssociationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserClinicAssociation to aggregate.
+     */
+    where?: UserClinicAssociationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserClinicAssociations to fetch.
+     */
+    orderBy?: UserClinicAssociationOrderByWithRelationInput | UserClinicAssociationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserClinicAssociationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserClinicAssociations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserClinicAssociations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserClinicAssociations
+    **/
+    _count?: true | UserClinicAssociationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserClinicAssociationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserClinicAssociationMaxAggregateInputType
+  }
+
+  export type GetUserClinicAssociationAggregateType<T extends UserClinicAssociationAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserClinicAssociation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserClinicAssociation[P]>
+      : GetScalarType<T[P], AggregateUserClinicAssociation[P]>
+  }
+
+
+
+
+  export type UserClinicAssociationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserClinicAssociationWhereInput
+    orderBy?: UserClinicAssociationOrderByWithAggregationInput | UserClinicAssociationOrderByWithAggregationInput[]
+    by: UserClinicAssociationScalarFieldEnum[] | UserClinicAssociationScalarFieldEnum
+    having?: UserClinicAssociationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserClinicAssociationCountAggregateInputType | true
+    _min?: UserClinicAssociationMinAggregateInputType
+    _max?: UserClinicAssociationMaxAggregateInputType
+  }
+
+  export type UserClinicAssociationGroupByOutputType = {
+    id: string
+    userId: string
+    clinicId: string
+    role: $Enums.Role
+    createdAt: Date
+    updatedAt: Date
+    _count: UserClinicAssociationCountAggregateOutputType | null
+    _min: UserClinicAssociationMinAggregateOutputType | null
+    _max: UserClinicAssociationMaxAggregateOutputType | null
+  }
+
+  type GetUserClinicAssociationGroupByPayload<T extends UserClinicAssociationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserClinicAssociationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserClinicAssociationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserClinicAssociationGroupByOutputType[P]>
+            : GetScalarType<T[P], UserClinicAssociationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserClinicAssociationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    clinicId?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userClinicAssociation"]>
+
+  export type UserClinicAssociationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    clinicId?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userClinicAssociation"]>
+
+  export type UserClinicAssociationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    clinicId?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userClinicAssociation"]>
+
+  export type UserClinicAssociationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    clinicId?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserClinicAssociationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "clinicId" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["userClinicAssociation"]>
+  export type UserClinicAssociationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicDefaultArgs<ExtArgs>
+  }
+  export type UserClinicAssociationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicDefaultArgs<ExtArgs>
+  }
+  export type UserClinicAssociationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    clinic?: boolean | ClinicDefaultArgs<ExtArgs>
+  }
+
+  export type $UserClinicAssociationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserClinicAssociation"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      clinic: Prisma.$ClinicPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      clinicId: string
+      role: $Enums.Role
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userClinicAssociation"]>
+    composites: {}
+  }
+
+  type UserClinicAssociationGetPayload<S extends boolean | null | undefined | UserClinicAssociationDefaultArgs> = $Result.GetResult<Prisma.$UserClinicAssociationPayload, S>
+
+  type UserClinicAssociationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserClinicAssociationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserClinicAssociationCountAggregateInputType | true
+    }
+
+  export interface UserClinicAssociationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserClinicAssociation'], meta: { name: 'UserClinicAssociation' } }
+    /**
+     * Find zero or one UserClinicAssociation that matches the filter.
+     * @param {UserClinicAssociationFindUniqueArgs} args - Arguments to find a UserClinicAssociation
+     * @example
+     * // Get one UserClinicAssociation
+     * const userClinicAssociation = await prisma.userClinicAssociation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserClinicAssociationFindUniqueArgs>(args: SelectSubset<T, UserClinicAssociationFindUniqueArgs<ExtArgs>>): Prisma__UserClinicAssociationClient<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserClinicAssociation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserClinicAssociationFindUniqueOrThrowArgs} args - Arguments to find a UserClinicAssociation
+     * @example
+     * // Get one UserClinicAssociation
+     * const userClinicAssociation = await prisma.userClinicAssociation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserClinicAssociationFindUniqueOrThrowArgs>(args: SelectSubset<T, UserClinicAssociationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClinicAssociationClient<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserClinicAssociation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClinicAssociationFindFirstArgs} args - Arguments to find a UserClinicAssociation
+     * @example
+     * // Get one UserClinicAssociation
+     * const userClinicAssociation = await prisma.userClinicAssociation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserClinicAssociationFindFirstArgs>(args?: SelectSubset<T, UserClinicAssociationFindFirstArgs<ExtArgs>>): Prisma__UserClinicAssociationClient<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserClinicAssociation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClinicAssociationFindFirstOrThrowArgs} args - Arguments to find a UserClinicAssociation
+     * @example
+     * // Get one UserClinicAssociation
+     * const userClinicAssociation = await prisma.userClinicAssociation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserClinicAssociationFindFirstOrThrowArgs>(args?: SelectSubset<T, UserClinicAssociationFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClinicAssociationClient<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserClinicAssociations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClinicAssociationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserClinicAssociations
+     * const userClinicAssociations = await prisma.userClinicAssociation.findMany()
+     * 
+     * // Get first 10 UserClinicAssociations
+     * const userClinicAssociations = await prisma.userClinicAssociation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userClinicAssociationWithIdOnly = await prisma.userClinicAssociation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserClinicAssociationFindManyArgs>(args?: SelectSubset<T, UserClinicAssociationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserClinicAssociation.
+     * @param {UserClinicAssociationCreateArgs} args - Arguments to create a UserClinicAssociation.
+     * @example
+     * // Create one UserClinicAssociation
+     * const UserClinicAssociation = await prisma.userClinicAssociation.create({
+     *   data: {
+     *     // ... data to create a UserClinicAssociation
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserClinicAssociationCreateArgs>(args: SelectSubset<T, UserClinicAssociationCreateArgs<ExtArgs>>): Prisma__UserClinicAssociationClient<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserClinicAssociations.
+     * @param {UserClinicAssociationCreateManyArgs} args - Arguments to create many UserClinicAssociations.
+     * @example
+     * // Create many UserClinicAssociations
+     * const userClinicAssociation = await prisma.userClinicAssociation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserClinicAssociationCreateManyArgs>(args?: SelectSubset<T, UserClinicAssociationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserClinicAssociations and returns the data saved in the database.
+     * @param {UserClinicAssociationCreateManyAndReturnArgs} args - Arguments to create many UserClinicAssociations.
+     * @example
+     * // Create many UserClinicAssociations
+     * const userClinicAssociation = await prisma.userClinicAssociation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserClinicAssociations and only return the `id`
+     * const userClinicAssociationWithIdOnly = await prisma.userClinicAssociation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserClinicAssociationCreateManyAndReturnArgs>(args?: SelectSubset<T, UserClinicAssociationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserClinicAssociation.
+     * @param {UserClinicAssociationDeleteArgs} args - Arguments to delete one UserClinicAssociation.
+     * @example
+     * // Delete one UserClinicAssociation
+     * const UserClinicAssociation = await prisma.userClinicAssociation.delete({
+     *   where: {
+     *     // ... filter to delete one UserClinicAssociation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserClinicAssociationDeleteArgs>(args: SelectSubset<T, UserClinicAssociationDeleteArgs<ExtArgs>>): Prisma__UserClinicAssociationClient<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserClinicAssociation.
+     * @param {UserClinicAssociationUpdateArgs} args - Arguments to update one UserClinicAssociation.
+     * @example
+     * // Update one UserClinicAssociation
+     * const userClinicAssociation = await prisma.userClinicAssociation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserClinicAssociationUpdateArgs>(args: SelectSubset<T, UserClinicAssociationUpdateArgs<ExtArgs>>): Prisma__UserClinicAssociationClient<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserClinicAssociations.
+     * @param {UserClinicAssociationDeleteManyArgs} args - Arguments to filter UserClinicAssociations to delete.
+     * @example
+     * // Delete a few UserClinicAssociations
+     * const { count } = await prisma.userClinicAssociation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserClinicAssociationDeleteManyArgs>(args?: SelectSubset<T, UserClinicAssociationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserClinicAssociations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClinicAssociationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserClinicAssociations
+     * const userClinicAssociation = await prisma.userClinicAssociation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserClinicAssociationUpdateManyArgs>(args: SelectSubset<T, UserClinicAssociationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserClinicAssociations and returns the data updated in the database.
+     * @param {UserClinicAssociationUpdateManyAndReturnArgs} args - Arguments to update many UserClinicAssociations.
+     * @example
+     * // Update many UserClinicAssociations
+     * const userClinicAssociation = await prisma.userClinicAssociation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserClinicAssociations and only return the `id`
+     * const userClinicAssociationWithIdOnly = await prisma.userClinicAssociation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserClinicAssociationUpdateManyAndReturnArgs>(args: SelectSubset<T, UserClinicAssociationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserClinicAssociation.
+     * @param {UserClinicAssociationUpsertArgs} args - Arguments to update or create a UserClinicAssociation.
+     * @example
+     * // Update or create a UserClinicAssociation
+     * const userClinicAssociation = await prisma.userClinicAssociation.upsert({
+     *   create: {
+     *     // ... data to create a UserClinicAssociation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserClinicAssociation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserClinicAssociationUpsertArgs>(args: SelectSubset<T, UserClinicAssociationUpsertArgs<ExtArgs>>): Prisma__UserClinicAssociationClient<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserClinicAssociations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClinicAssociationCountArgs} args - Arguments to filter UserClinicAssociations to count.
+     * @example
+     * // Count the number of UserClinicAssociations
+     * const count = await prisma.userClinicAssociation.count({
+     *   where: {
+     *     // ... the filter for the UserClinicAssociations we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserClinicAssociationCountArgs>(
+      args?: Subset<T, UserClinicAssociationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserClinicAssociationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserClinicAssociation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClinicAssociationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserClinicAssociationAggregateArgs>(args: Subset<T, UserClinicAssociationAggregateArgs>): Prisma.PrismaPromise<GetUserClinicAssociationAggregateType<T>>
+
+    /**
+     * Group by UserClinicAssociation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserClinicAssociationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserClinicAssociationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserClinicAssociationGroupByArgs['orderBy'] }
+        : { orderBy?: UserClinicAssociationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserClinicAssociationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserClinicAssociationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserClinicAssociation model
+   */
+  readonly fields: UserClinicAssociationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserClinicAssociation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserClinicAssociationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    clinic<T extends ClinicDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicDefaultArgs<ExtArgs>>): Prisma__ClinicClient<$Result.GetResult<Prisma.$ClinicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserClinicAssociation model
+   */
+  interface UserClinicAssociationFieldRefs {
+    readonly id: FieldRef<"UserClinicAssociation", 'String'>
+    readonly userId: FieldRef<"UserClinicAssociation", 'String'>
+    readonly clinicId: FieldRef<"UserClinicAssociation", 'String'>
+    readonly role: FieldRef<"UserClinicAssociation", 'Role'>
+    readonly createdAt: FieldRef<"UserClinicAssociation", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserClinicAssociation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserClinicAssociation findUnique
+   */
+  export type UserClinicAssociationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClinicAssociation to fetch.
+     */
+    where: UserClinicAssociationWhereUniqueInput
+  }
+
+  /**
+   * UserClinicAssociation findUniqueOrThrow
+   */
+  export type UserClinicAssociationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClinicAssociation to fetch.
+     */
+    where: UserClinicAssociationWhereUniqueInput
+  }
+
+  /**
+   * UserClinicAssociation findFirst
+   */
+  export type UserClinicAssociationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClinicAssociation to fetch.
+     */
+    where?: UserClinicAssociationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserClinicAssociations to fetch.
+     */
+    orderBy?: UserClinicAssociationOrderByWithRelationInput | UserClinicAssociationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserClinicAssociations.
+     */
+    cursor?: UserClinicAssociationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserClinicAssociations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserClinicAssociations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserClinicAssociations.
+     */
+    distinct?: UserClinicAssociationScalarFieldEnum | UserClinicAssociationScalarFieldEnum[]
+  }
+
+  /**
+   * UserClinicAssociation findFirstOrThrow
+   */
+  export type UserClinicAssociationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClinicAssociation to fetch.
+     */
+    where?: UserClinicAssociationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserClinicAssociations to fetch.
+     */
+    orderBy?: UserClinicAssociationOrderByWithRelationInput | UserClinicAssociationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserClinicAssociations.
+     */
+    cursor?: UserClinicAssociationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserClinicAssociations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserClinicAssociations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserClinicAssociations.
+     */
+    distinct?: UserClinicAssociationScalarFieldEnum | UserClinicAssociationScalarFieldEnum[]
+  }
+
+  /**
+   * UserClinicAssociation findMany
+   */
+  export type UserClinicAssociationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserClinicAssociations to fetch.
+     */
+    where?: UserClinicAssociationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserClinicAssociations to fetch.
+     */
+    orderBy?: UserClinicAssociationOrderByWithRelationInput | UserClinicAssociationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserClinicAssociations.
+     */
+    cursor?: UserClinicAssociationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserClinicAssociations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserClinicAssociations.
+     */
+    skip?: number
+    distinct?: UserClinicAssociationScalarFieldEnum | UserClinicAssociationScalarFieldEnum[]
+  }
+
+  /**
+   * UserClinicAssociation create
+   */
+  export type UserClinicAssociationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserClinicAssociation.
+     */
+    data: XOR<UserClinicAssociationCreateInput, UserClinicAssociationUncheckedCreateInput>
+  }
+
+  /**
+   * UserClinicAssociation createMany
+   */
+  export type UserClinicAssociationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserClinicAssociations.
+     */
+    data: UserClinicAssociationCreateManyInput | UserClinicAssociationCreateManyInput[]
+  }
+
+  /**
+   * UserClinicAssociation createManyAndReturn
+   */
+  export type UserClinicAssociationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserClinicAssociations.
+     */
+    data: UserClinicAssociationCreateManyInput | UserClinicAssociationCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserClinicAssociation update
+   */
+  export type UserClinicAssociationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserClinicAssociation.
+     */
+    data: XOR<UserClinicAssociationUpdateInput, UserClinicAssociationUncheckedUpdateInput>
+    /**
+     * Choose, which UserClinicAssociation to update.
+     */
+    where: UserClinicAssociationWhereUniqueInput
+  }
+
+  /**
+   * UserClinicAssociation updateMany
+   */
+  export type UserClinicAssociationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserClinicAssociations.
+     */
+    data: XOR<UserClinicAssociationUpdateManyMutationInput, UserClinicAssociationUncheckedUpdateManyInput>
+    /**
+     * Filter which UserClinicAssociations to update
+     */
+    where?: UserClinicAssociationWhereInput
+    /**
+     * Limit how many UserClinicAssociations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserClinicAssociation updateManyAndReturn
+   */
+  export type UserClinicAssociationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * The data used to update UserClinicAssociations.
+     */
+    data: XOR<UserClinicAssociationUpdateManyMutationInput, UserClinicAssociationUncheckedUpdateManyInput>
+    /**
+     * Filter which UserClinicAssociations to update
+     */
+    where?: UserClinicAssociationWhereInput
+    /**
+     * Limit how many UserClinicAssociations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserClinicAssociation upsert
+   */
+  export type UserClinicAssociationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserClinicAssociation to update in case it exists.
+     */
+    where: UserClinicAssociationWhereUniqueInput
+    /**
+     * In case the UserClinicAssociation found by the `where` argument doesn't exist, create a new UserClinicAssociation with this data.
+     */
+    create: XOR<UserClinicAssociationCreateInput, UserClinicAssociationUncheckedCreateInput>
+    /**
+     * In case the UserClinicAssociation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserClinicAssociationUpdateInput, UserClinicAssociationUncheckedUpdateInput>
+  }
+
+  /**
+   * UserClinicAssociation delete
+   */
+  export type UserClinicAssociationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    /**
+     * Filter which UserClinicAssociation to delete.
+     */
+    where: UserClinicAssociationWhereUniqueInput
+  }
+
+  /**
+   * UserClinicAssociation deleteMany
+   */
+  export type UserClinicAssociationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserClinicAssociations to delete
+     */
+    where?: UserClinicAssociationWhereInput
+    /**
+     * Limit how many UserClinicAssociations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserClinicAssociation without action
+   */
+  export type UserClinicAssociationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
   }
 
 
@@ -6271,6 +7472,7 @@ export namespace Prisma {
     manager?: boolean | Clinic$managerArgs<ExtArgs>
     appointments?: boolean | Clinic$appointmentsArgs<ExtArgs>
     clinicService?: boolean | Clinic$clinicServiceArgs<ExtArgs>
+    userClinicAssociation?: boolean | Clinic$userClinicAssociationArgs<ExtArgs>
     _count?: boolean | ClinicCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clinic"]>
 
@@ -6314,6 +7516,7 @@ export namespace Prisma {
     manager?: boolean | Clinic$managerArgs<ExtArgs>
     appointments?: boolean | Clinic$appointmentsArgs<ExtArgs>
     clinicService?: boolean | Clinic$clinicServiceArgs<ExtArgs>
+    userClinicAssociation?: boolean | Clinic$userClinicAssociationArgs<ExtArgs>
     _count?: boolean | ClinicCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClinicIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6329,6 +7532,7 @@ export namespace Prisma {
       manager: Prisma.$UserPayload<ExtArgs> | null
       appointments: Prisma.$AppointmentPayload<ExtArgs>[]
       clinicService: Prisma.$ClinicServicePayload<ExtArgs>[]
+      userClinicAssociation: Prisma.$UserClinicAssociationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6736,6 +7940,7 @@ export namespace Prisma {
     manager<T extends Clinic$managerArgs<ExtArgs> = {}>(args?: Subset<T, Clinic$managerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     appointments<T extends Clinic$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, Clinic$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     clinicService<T extends Clinic$clinicServiceArgs<ExtArgs> = {}>(args?: Subset<T, Clinic$clinicServiceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClinicServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userClinicAssociation<T extends Clinic$userClinicAssociationArgs<ExtArgs> = {}>(args?: Subset<T, Clinic$userClinicAssociationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserClinicAssociationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7231,6 +8436,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ClinicServiceScalarFieldEnum | ClinicServiceScalarFieldEnum[]
+  }
+
+  /**
+   * Clinic.userClinicAssociation
+   */
+  export type Clinic$userClinicAssociationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserClinicAssociation
+     */
+    select?: UserClinicAssociationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserClinicAssociation
+     */
+    omit?: UserClinicAssociationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserClinicAssociationInclude<ExtArgs> | null
+    where?: UserClinicAssociationWhereInput
+    orderBy?: UserClinicAssociationOrderByWithRelationInput | UserClinicAssociationOrderByWithRelationInput[]
+    cursor?: UserClinicAssociationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserClinicAssociationScalarFieldEnum | UserClinicAssociationScalarFieldEnum[]
   }
 
   /**
@@ -10779,12 +12008,23 @@ export namespace Prisma {
     image: 'image',
     phone: 'phone',
     emailVerified: 'emailVerified',
-    role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const UserClinicAssociationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    clinicId: 'clinicId',
+    role: 'role',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserClinicAssociationScalarFieldEnum = (typeof UserClinicAssociationScalarFieldEnum)[keyof typeof UserClinicAssociationScalarFieldEnum]
 
 
   export const ClinicScalarFieldEnum: {
@@ -11094,13 +12334,13 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     phone?: StringNullableFilter<"User"> | string | null
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
-    role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     appointment?: AppointmentListRelationFilter
     clinic?: XOR<ClinicNullableScalarRelationFilter, ClinicWhereInput> | null
     account?: AccountListRelationFilter
     session?: SessionListRelationFilter
+    UserClinicAssociation?: UserClinicAssociationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11110,13 +12350,13 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     emailVerified?: SortOrderInput | SortOrder
-    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     appointment?: AppointmentOrderByRelationAggregateInput
     clinic?: ClinicOrderByWithRelationInput
     account?: AccountOrderByRelationAggregateInput
     session?: SessionOrderByRelationAggregateInput
+    UserClinicAssociation?: UserClinicAssociationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11129,13 +12369,13 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     phone?: StringNullableFilter<"User"> | string | null
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
-    role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     appointment?: AppointmentListRelationFilter
     clinic?: XOR<ClinicNullableScalarRelationFilter, ClinicWhereInput> | null
     account?: AccountListRelationFilter
     session?: SessionListRelationFilter
+    UserClinicAssociation?: UserClinicAssociationListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11145,7 +12385,6 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     emailVerified?: SortOrderInput | SortOrder
-    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -11163,9 +12402,72 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-    role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type UserClinicAssociationWhereInput = {
+    AND?: UserClinicAssociationWhereInput | UserClinicAssociationWhereInput[]
+    OR?: UserClinicAssociationWhereInput[]
+    NOT?: UserClinicAssociationWhereInput | UserClinicAssociationWhereInput[]
+    id?: StringFilter<"UserClinicAssociation"> | string
+    userId?: StringFilter<"UserClinicAssociation"> | string
+    clinicId?: StringFilter<"UserClinicAssociation"> | string
+    role?: EnumRoleFilter<"UserClinicAssociation"> | $Enums.Role
+    createdAt?: DateTimeFilter<"UserClinicAssociation"> | Date | string
+    updatedAt?: DateTimeFilter<"UserClinicAssociation"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    clinic?: XOR<ClinicScalarRelationFilter, ClinicWhereInput>
+  }
+
+  export type UserClinicAssociationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    clinicId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    clinic?: ClinicOrderByWithRelationInput
+  }
+
+  export type UserClinicAssociationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_clinicId?: UserClinicAssociationUserIdClinicIdCompoundUniqueInput
+    AND?: UserClinicAssociationWhereInput | UserClinicAssociationWhereInput[]
+    OR?: UserClinicAssociationWhereInput[]
+    NOT?: UserClinicAssociationWhereInput | UserClinicAssociationWhereInput[]
+    userId?: StringFilter<"UserClinicAssociation"> | string
+    clinicId?: StringFilter<"UserClinicAssociation"> | string
+    role?: EnumRoleFilter<"UserClinicAssociation"> | $Enums.Role
+    createdAt?: DateTimeFilter<"UserClinicAssociation"> | Date | string
+    updatedAt?: DateTimeFilter<"UserClinicAssociation"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    clinic?: XOR<ClinicScalarRelationFilter, ClinicWhereInput>
+  }, "id" | "userId_clinicId">
+
+  export type UserClinicAssociationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    clinicId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserClinicAssociationCountOrderByAggregateInput
+    _max?: UserClinicAssociationMaxOrderByAggregateInput
+    _min?: UserClinicAssociationMinOrderByAggregateInput
+  }
+
+  export type UserClinicAssociationScalarWhereWithAggregatesInput = {
+    AND?: UserClinicAssociationScalarWhereWithAggregatesInput | UserClinicAssociationScalarWhereWithAggregatesInput[]
+    OR?: UserClinicAssociationScalarWhereWithAggregatesInput[]
+    NOT?: UserClinicAssociationScalarWhereWithAggregatesInput | UserClinicAssociationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserClinicAssociation"> | string
+    userId?: StringWithAggregatesFilter<"UserClinicAssociation"> | string
+    clinicId?: StringWithAggregatesFilter<"UserClinicAssociation"> | string
+    role?: EnumRoleWithAggregatesFilter<"UserClinicAssociation"> | $Enums.Role
+    createdAt?: DateTimeWithAggregatesFilter<"UserClinicAssociation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserClinicAssociation"> | Date | string
   }
 
   export type ClinicWhereInput = {
@@ -11183,6 +12485,7 @@ export namespace Prisma {
     manager?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     appointments?: AppointmentListRelationFilter
     clinicService?: ClinicServiceListRelationFilter
+    userClinicAssociation?: UserClinicAssociationListRelationFilter
   }
 
   export type ClinicOrderByWithRelationInput = {
@@ -11197,6 +12500,7 @@ export namespace Prisma {
     manager?: UserOrderByWithRelationInput
     appointments?: AppointmentOrderByRelationAggregateInput
     clinicService?: ClinicServiceOrderByRelationAggregateInput
+    userClinicAssociation?: UserClinicAssociationOrderByRelationAggregateInput
   }
 
   export type ClinicWhereUniqueInput = Prisma.AtLeast<{
@@ -11214,6 +12518,7 @@ export namespace Prisma {
     manager?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     appointments?: AppointmentListRelationFilter
     clinicService?: ClinicServiceListRelationFilter
+    userClinicAssociation?: UserClinicAssociationListRelationFilter
   }, "id" | "managerId">
 
   export type ClinicOrderByWithAggregationInput = {
@@ -11653,13 +12958,13 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment?: AppointmentCreateNestedManyWithoutUserInput
     clinic?: ClinicCreateNestedOneWithoutManagerInput
     account?: AccountCreateNestedManyWithoutUserInput
     session?: SessionCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11669,13 +12974,13 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     clinic?: ClinicUncheckedCreateNestedOneWithoutManagerInput
     account?: AccountUncheckedCreateNestedManyWithoutUserInput
     session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11685,13 +12990,13 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUpdateManyWithoutUserNestedInput
     clinic?: ClinicUpdateOneWithoutManagerNestedInput
     account?: AccountUpdateManyWithoutUserNestedInput
     session?: SessionUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11701,13 +13006,13 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     clinic?: ClinicUncheckedUpdateOneWithoutManagerNestedInput
     account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11717,7 +13022,6 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11729,7 +13033,6 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11741,6 +13044,66 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClinicAssociationCreateInput = {
+    id?: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserClinicAssociationInput
+    clinic: ClinicCreateNestedOneWithoutUserClinicAssociationInput
+  }
+
+  export type UserClinicAssociationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    clinicId: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClinicAssociationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserClinicAssociationNestedInput
+    clinic?: ClinicUpdateOneRequiredWithoutUserClinicAssociationNestedInput
+  }
+
+  export type UserClinicAssociationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    clinicId?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClinicAssociationCreateManyInput = {
+    id?: string
+    userId: string
+    clinicId: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClinicAssociationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClinicAssociationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    clinicId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11757,6 +13120,7 @@ export namespace Prisma {
     manager?: UserCreateNestedOneWithoutClinicInput
     appointments?: AppointmentCreateNestedManyWithoutClinicInput
     clinicService?: ClinicServiceCreateNestedManyWithoutClinicInput
+    userClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutClinicInput
   }
 
   export type ClinicUncheckedCreateInput = {
@@ -11770,6 +13134,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     appointments?: AppointmentUncheckedCreateNestedManyWithoutClinicInput
     clinicService?: ClinicServiceUncheckedCreateNestedManyWithoutClinicInput
+    userClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutClinicInput
   }
 
   export type ClinicUpdateInput = {
@@ -11783,6 +13148,7 @@ export namespace Prisma {
     manager?: UserUpdateOneWithoutClinicNestedInput
     appointments?: AppointmentUpdateManyWithoutClinicNestedInput
     clinicService?: ClinicServiceUpdateManyWithoutClinicNestedInput
+    userClinicAssociation?: UserClinicAssociationUpdateManyWithoutClinicNestedInput
   }
 
   export type ClinicUncheckedUpdateInput = {
@@ -11796,6 +13162,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUncheckedUpdateManyWithoutClinicNestedInput
     clinicService?: ClinicServiceUncheckedUpdateManyWithoutClinicNestedInput
+    userClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutClinicNestedInput
   }
 
   export type ClinicCreateManyInput = {
@@ -12273,13 +13640,6 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type EnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[]
-    notIn?: $Enums.Role[]
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
   export type AppointmentListRelationFilter = {
     every?: AppointmentWhereInput
     some?: AppointmentWhereInput
@@ -12303,6 +13663,12 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type UserClinicAssociationListRelationFilter = {
+    every?: UserClinicAssociationWhereInput
+    some?: UserClinicAssociationWhereInput
+    none?: UserClinicAssociationWhereInput
+  }
+
   export type AppointmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -12315,6 +13681,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type UserClinicAssociationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -12322,7 +13692,6 @@ export namespace Prisma {
     image?: SortOrder
     phone?: SortOrder
     emailVerified?: SortOrder
-    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12334,7 +13703,6 @@ export namespace Prisma {
     image?: SortOrder
     phone?: SortOrder
     emailVerified?: SortOrder
-    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12346,7 +13714,6 @@ export namespace Prisma {
     image?: SortOrder
     phone?: SortOrder
     emailVerified?: SortOrder
-    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12363,6 +13730,50 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type ClinicScalarRelationFilter = {
+    is?: ClinicWhereInput
+    isNot?: ClinicWhereInput
+  }
+
+  export type UserClinicAssociationUserIdClinicIdCompoundUniqueInput = {
+    userId: string
+    clinicId: string
+  }
+
+  export type UserClinicAssociationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    clinicId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserClinicAssociationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    clinicId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserClinicAssociationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    clinicId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -12545,11 +13956,6 @@ export namespace Prisma {
     quantity?: SortOrder
   }
 
-  export type ClinicScalarRelationFilter = {
-    is?: ClinicWhereInput
-    isNot?: ClinicWhereInput
-  }
-
   export type ClinicServiceCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -12663,6 +14069,13 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type UserClinicAssociationCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserClinicAssociationCreateWithoutUserInput, UserClinicAssociationUncheckedCreateWithoutUserInput> | UserClinicAssociationCreateWithoutUserInput[] | UserClinicAssociationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserClinicAssociationCreateOrConnectWithoutUserInput | UserClinicAssociationCreateOrConnectWithoutUserInput[]
+    createMany?: UserClinicAssociationCreateManyUserInputEnvelope
+    connect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+  }
+
   export type AppointmentUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput> | AppointmentCreateWithoutUserInput[] | AppointmentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
@@ -12690,12 +14103,15 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type UserClinicAssociationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserClinicAssociationCreateWithoutUserInput, UserClinicAssociationUncheckedCreateWithoutUserInput> | UserClinicAssociationCreateWithoutUserInput[] | UserClinicAssociationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserClinicAssociationCreateOrConnectWithoutUserInput | UserClinicAssociationCreateOrConnectWithoutUserInput[]
+    createMany?: UserClinicAssociationCreateManyUserInputEnvelope
+    connect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
   }
 
-  export type EnumRoleFieldUpdateOperationsInput = {
-    set?: $Enums.Role
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type AppointmentUpdateManyWithoutUserNestedInput = {
@@ -12750,6 +14166,20 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type UserClinicAssociationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserClinicAssociationCreateWithoutUserInput, UserClinicAssociationUncheckedCreateWithoutUserInput> | UserClinicAssociationCreateWithoutUserInput[] | UserClinicAssociationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserClinicAssociationCreateOrConnectWithoutUserInput | UserClinicAssociationCreateOrConnectWithoutUserInput[]
+    upsert?: UserClinicAssociationUpsertWithWhereUniqueWithoutUserInput | UserClinicAssociationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserClinicAssociationCreateManyUserInputEnvelope
+    set?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    disconnect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    delete?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    connect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    update?: UserClinicAssociationUpdateWithWhereUniqueWithoutUserInput | UserClinicAssociationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserClinicAssociationUpdateManyWithWhereWithoutUserInput | UserClinicAssociationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserClinicAssociationScalarWhereInput | UserClinicAssociationScalarWhereInput[]
+  }
+
   export type AppointmentUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput> | AppointmentCreateWithoutUserInput[] | AppointmentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
@@ -12802,6 +14232,52 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type UserClinicAssociationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserClinicAssociationCreateWithoutUserInput, UserClinicAssociationUncheckedCreateWithoutUserInput> | UserClinicAssociationCreateWithoutUserInput[] | UserClinicAssociationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserClinicAssociationCreateOrConnectWithoutUserInput | UserClinicAssociationCreateOrConnectWithoutUserInput[]
+    upsert?: UserClinicAssociationUpsertWithWhereUniqueWithoutUserInput | UserClinicAssociationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserClinicAssociationCreateManyUserInputEnvelope
+    set?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    disconnect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    delete?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    connect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    update?: UserClinicAssociationUpdateWithWhereUniqueWithoutUserInput | UserClinicAssociationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserClinicAssociationUpdateManyWithWhereWithoutUserInput | UserClinicAssociationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserClinicAssociationScalarWhereInput | UserClinicAssociationScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutUserClinicAssociationInput = {
+    create?: XOR<UserCreateWithoutUserClinicAssociationInput, UserUncheckedCreateWithoutUserClinicAssociationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserClinicAssociationInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ClinicCreateNestedOneWithoutUserClinicAssociationInput = {
+    create?: XOR<ClinicCreateWithoutUserClinicAssociationInput, ClinicUncheckedCreateWithoutUserClinicAssociationInput>
+    connectOrCreate?: ClinicCreateOrConnectWithoutUserClinicAssociationInput
+    connect?: ClinicWhereUniqueInput
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
+  }
+
+  export type UserUpdateOneRequiredWithoutUserClinicAssociationNestedInput = {
+    create?: XOR<UserCreateWithoutUserClinicAssociationInput, UserUncheckedCreateWithoutUserClinicAssociationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserClinicAssociationInput
+    upsert?: UserUpsertWithoutUserClinicAssociationInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserClinicAssociationInput, UserUpdateWithoutUserClinicAssociationInput>, UserUncheckedUpdateWithoutUserClinicAssociationInput>
+  }
+
+  export type ClinicUpdateOneRequiredWithoutUserClinicAssociationNestedInput = {
+    create?: XOR<ClinicCreateWithoutUserClinicAssociationInput, ClinicUncheckedCreateWithoutUserClinicAssociationInput>
+    connectOrCreate?: ClinicCreateOrConnectWithoutUserClinicAssociationInput
+    upsert?: ClinicUpsertWithoutUserClinicAssociationInput
+    connect?: ClinicWhereUniqueInput
+    update?: XOR<XOR<ClinicUpdateToOneWithWhereWithoutUserClinicAssociationInput, ClinicUpdateWithoutUserClinicAssociationInput>, ClinicUncheckedUpdateWithoutUserClinicAssociationInput>
+  }
+
   export type UserCreateNestedOneWithoutClinicInput = {
     create?: XOR<UserCreateWithoutClinicInput, UserUncheckedCreateWithoutClinicInput>
     connectOrCreate?: UserCreateOrConnectWithoutClinicInput
@@ -12822,6 +14298,13 @@ export namespace Prisma {
     connect?: ClinicServiceWhereUniqueInput | ClinicServiceWhereUniqueInput[]
   }
 
+  export type UserClinicAssociationCreateNestedManyWithoutClinicInput = {
+    create?: XOR<UserClinicAssociationCreateWithoutClinicInput, UserClinicAssociationUncheckedCreateWithoutClinicInput> | UserClinicAssociationCreateWithoutClinicInput[] | UserClinicAssociationUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: UserClinicAssociationCreateOrConnectWithoutClinicInput | UserClinicAssociationCreateOrConnectWithoutClinicInput[]
+    createMany?: UserClinicAssociationCreateManyClinicInputEnvelope
+    connect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+  }
+
   export type AppointmentUncheckedCreateNestedManyWithoutClinicInput = {
     create?: XOR<AppointmentCreateWithoutClinicInput, AppointmentUncheckedCreateWithoutClinicInput> | AppointmentCreateWithoutClinicInput[] | AppointmentUncheckedCreateWithoutClinicInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutClinicInput | AppointmentCreateOrConnectWithoutClinicInput[]
@@ -12834,6 +14317,13 @@ export namespace Prisma {
     connectOrCreate?: ClinicServiceCreateOrConnectWithoutClinicInput | ClinicServiceCreateOrConnectWithoutClinicInput[]
     createMany?: ClinicServiceCreateManyClinicInputEnvelope
     connect?: ClinicServiceWhereUniqueInput | ClinicServiceWhereUniqueInput[]
+  }
+
+  export type UserClinicAssociationUncheckedCreateNestedManyWithoutClinicInput = {
+    create?: XOR<UserClinicAssociationCreateWithoutClinicInput, UserClinicAssociationUncheckedCreateWithoutClinicInput> | UserClinicAssociationCreateWithoutClinicInput[] | UserClinicAssociationUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: UserClinicAssociationCreateOrConnectWithoutClinicInput | UserClinicAssociationCreateOrConnectWithoutClinicInput[]
+    createMany?: UserClinicAssociationCreateManyClinicInputEnvelope
+    connect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
   }
 
   export type UserUpdateOneWithoutClinicNestedInput = {
@@ -12874,6 +14364,20 @@ export namespace Prisma {
     deleteMany?: ClinicServiceScalarWhereInput | ClinicServiceScalarWhereInput[]
   }
 
+  export type UserClinicAssociationUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<UserClinicAssociationCreateWithoutClinicInput, UserClinicAssociationUncheckedCreateWithoutClinicInput> | UserClinicAssociationCreateWithoutClinicInput[] | UserClinicAssociationUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: UserClinicAssociationCreateOrConnectWithoutClinicInput | UserClinicAssociationCreateOrConnectWithoutClinicInput[]
+    upsert?: UserClinicAssociationUpsertWithWhereUniqueWithoutClinicInput | UserClinicAssociationUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: UserClinicAssociationCreateManyClinicInputEnvelope
+    set?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    disconnect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    delete?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    connect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    update?: UserClinicAssociationUpdateWithWhereUniqueWithoutClinicInput | UserClinicAssociationUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: UserClinicAssociationUpdateManyWithWhereWithoutClinicInput | UserClinicAssociationUpdateManyWithWhereWithoutClinicInput[]
+    deleteMany?: UserClinicAssociationScalarWhereInput | UserClinicAssociationScalarWhereInput[]
+  }
+
   export type AppointmentUncheckedUpdateManyWithoutClinicNestedInput = {
     create?: XOR<AppointmentCreateWithoutClinicInput, AppointmentUncheckedCreateWithoutClinicInput> | AppointmentCreateWithoutClinicInput[] | AppointmentUncheckedCreateWithoutClinicInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutClinicInput | AppointmentCreateOrConnectWithoutClinicInput[]
@@ -12900,6 +14404,20 @@ export namespace Prisma {
     update?: ClinicServiceUpdateWithWhereUniqueWithoutClinicInput | ClinicServiceUpdateWithWhereUniqueWithoutClinicInput[]
     updateMany?: ClinicServiceUpdateManyWithWhereWithoutClinicInput | ClinicServiceUpdateManyWithWhereWithoutClinicInput[]
     deleteMany?: ClinicServiceScalarWhereInput | ClinicServiceScalarWhereInput[]
+  }
+
+  export type UserClinicAssociationUncheckedUpdateManyWithoutClinicNestedInput = {
+    create?: XOR<UserClinicAssociationCreateWithoutClinicInput, UserClinicAssociationUncheckedCreateWithoutClinicInput> | UserClinicAssociationCreateWithoutClinicInput[] | UserClinicAssociationUncheckedCreateWithoutClinicInput[]
+    connectOrCreate?: UserClinicAssociationCreateOrConnectWithoutClinicInput | UserClinicAssociationCreateOrConnectWithoutClinicInput[]
+    upsert?: UserClinicAssociationUpsertWithWhereUniqueWithoutClinicInput | UserClinicAssociationUpsertWithWhereUniqueWithoutClinicInput[]
+    createMany?: UserClinicAssociationCreateManyClinicInputEnvelope
+    set?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    disconnect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    delete?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    connect?: UserClinicAssociationWhereUniqueInput | UserClinicAssociationWhereUniqueInput[]
+    update?: UserClinicAssociationUpdateWithWhereUniqueWithoutClinicInput | UserClinicAssociationUpdateWithWhereUniqueWithoutClinicInput[]
+    updateMany?: UserClinicAssociationUpdateManyWithWhereWithoutClinicInput | UserClinicAssociationUpdateManyWithWhereWithoutClinicInput[]
+    deleteMany?: UserClinicAssociationScalarWhereInput | UserClinicAssociationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAppointmentInput = {
@@ -13217,13 +14735,6 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type NestedEnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[]
-    notIn?: $Enums.Role[]
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
@@ -13236,6 +14747,13 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -13282,12 +14800,12 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment?: AppointmentCreateNestedManyWithoutUserInput
     clinic?: ClinicCreateNestedOneWithoutManagerInput
     session?: SessionCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountInput = {
@@ -13297,12 +14815,12 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     clinic?: ClinicUncheckedCreateNestedOneWithoutManagerInput
     session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountInput = {
@@ -13328,12 +14846,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUpdateManyWithoutUserNestedInput
     clinic?: ClinicUpdateOneWithoutManagerNestedInput
     session?: SessionUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountInput = {
@@ -13343,12 +14861,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     clinic?: ClinicUncheckedUpdateOneWithoutManagerNestedInput
     session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionInput = {
@@ -13358,12 +14876,12 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment?: AppointmentCreateNestedManyWithoutUserInput
     clinic?: ClinicCreateNestedOneWithoutManagerInput
     account?: AccountCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionInput = {
@@ -13373,12 +14891,12 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     clinic?: ClinicUncheckedCreateNestedOneWithoutManagerInput
     account?: AccountUncheckedCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionInput = {
@@ -13404,12 +14922,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUpdateManyWithoutUserNestedInput
     clinic?: ClinicUpdateOneWithoutManagerNestedInput
     account?: AccountUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionInput = {
@@ -13419,12 +14937,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     clinic?: ClinicUncheckedUpdateOneWithoutManagerNestedInput
     account?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AppointmentCreateWithoutUserInput = {
@@ -13468,6 +14986,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     appointments?: AppointmentCreateNestedManyWithoutClinicInput
     clinicService?: ClinicServiceCreateNestedManyWithoutClinicInput
+    userClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutClinicInput
   }
 
   export type ClinicUncheckedCreateWithoutManagerInput = {
@@ -13480,6 +14999,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     appointments?: AppointmentUncheckedCreateNestedManyWithoutClinicInput
     clinicService?: ClinicServiceUncheckedCreateNestedManyWithoutClinicInput
+    userClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutClinicInput
   }
 
   export type ClinicCreateOrConnectWithoutManagerInput = {
@@ -13545,6 +15065,31 @@ export namespace Prisma {
     data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
   }
 
+  export type UserClinicAssociationCreateWithoutUserInput = {
+    id?: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clinic: ClinicCreateNestedOneWithoutUserClinicAssociationInput
+  }
+
+  export type UserClinicAssociationUncheckedCreateWithoutUserInput = {
+    id?: string
+    clinicId: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClinicAssociationCreateOrConnectWithoutUserInput = {
+    where: UserClinicAssociationWhereUniqueInput
+    create: XOR<UserClinicAssociationCreateWithoutUserInput, UserClinicAssociationUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserClinicAssociationCreateManyUserInputEnvelope = {
+    data: UserClinicAssociationCreateManyUserInput | UserClinicAssociationCreateManyUserInput[]
+  }
+
   export type AppointmentUpsertWithWhereUniqueWithoutUserInput = {
     where: AppointmentWhereUniqueInput
     update: XOR<AppointmentUpdateWithoutUserInput, AppointmentUncheckedUpdateWithoutUserInput>
@@ -13596,6 +15141,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUpdateManyWithoutClinicNestedInput
     clinicService?: ClinicServiceUpdateManyWithoutClinicNestedInput
+    userClinicAssociation?: UserClinicAssociationUpdateManyWithoutClinicNestedInput
   }
 
   export type ClinicUncheckedUpdateWithoutManagerInput = {
@@ -13608,6 +15154,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUncheckedUpdateManyWithoutClinicNestedInput
     clinicService?: ClinicServiceUncheckedUpdateManyWithoutClinicNestedInput
+    userClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutClinicNestedInput
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -13670,6 +15217,178 @@ export namespace Prisma {
     expires?: DateTimeFilter<"Session"> | Date | string
   }
 
+  export type UserClinicAssociationUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserClinicAssociationWhereUniqueInput
+    update: XOR<UserClinicAssociationUpdateWithoutUserInput, UserClinicAssociationUncheckedUpdateWithoutUserInput>
+    create: XOR<UserClinicAssociationCreateWithoutUserInput, UserClinicAssociationUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserClinicAssociationUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserClinicAssociationWhereUniqueInput
+    data: XOR<UserClinicAssociationUpdateWithoutUserInput, UserClinicAssociationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserClinicAssociationUpdateManyWithWhereWithoutUserInput = {
+    where: UserClinicAssociationScalarWhereInput
+    data: XOR<UserClinicAssociationUpdateManyMutationInput, UserClinicAssociationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserClinicAssociationScalarWhereInput = {
+    AND?: UserClinicAssociationScalarWhereInput | UserClinicAssociationScalarWhereInput[]
+    OR?: UserClinicAssociationScalarWhereInput[]
+    NOT?: UserClinicAssociationScalarWhereInput | UserClinicAssociationScalarWhereInput[]
+    id?: StringFilter<"UserClinicAssociation"> | string
+    userId?: StringFilter<"UserClinicAssociation"> | string
+    clinicId?: StringFilter<"UserClinicAssociation"> | string
+    role?: EnumRoleFilter<"UserClinicAssociation"> | $Enums.Role
+    createdAt?: DateTimeFilter<"UserClinicAssociation"> | Date | string
+    updatedAt?: DateTimeFilter<"UserClinicAssociation"> | Date | string
+  }
+
+  export type UserCreateWithoutUserClinicAssociationInput = {
+    id?: string
+    name: string
+    email: string
+    image?: string | null
+    phone?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointment?: AppointmentCreateNestedManyWithoutUserInput
+    clinic?: ClinicCreateNestedOneWithoutManagerInput
+    account?: AccountCreateNestedManyWithoutUserInput
+    session?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserClinicAssociationInput = {
+    id?: string
+    name: string
+    email: string
+    image?: string | null
+    phone?: string | null
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointment?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    clinic?: ClinicUncheckedCreateNestedOneWithoutManagerInput
+    account?: AccountUncheckedCreateNestedManyWithoutUserInput
+    session?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserClinicAssociationInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserClinicAssociationInput, UserUncheckedCreateWithoutUserClinicAssociationInput>
+  }
+
+  export type ClinicCreateWithoutUserClinicAssociationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address?: string | null
+    phone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    manager?: UserCreateNestedOneWithoutClinicInput
+    appointments?: AppointmentCreateNestedManyWithoutClinicInput
+    clinicService?: ClinicServiceCreateNestedManyWithoutClinicInput
+  }
+
+  export type ClinicUncheckedCreateWithoutUserClinicAssociationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    address?: string | null
+    phone?: string | null
+    managerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutClinicInput
+    clinicService?: ClinicServiceUncheckedCreateNestedManyWithoutClinicInput
+  }
+
+  export type ClinicCreateOrConnectWithoutUserClinicAssociationInput = {
+    where: ClinicWhereUniqueInput
+    create: XOR<ClinicCreateWithoutUserClinicAssociationInput, ClinicUncheckedCreateWithoutUserClinicAssociationInput>
+  }
+
+  export type UserUpsertWithoutUserClinicAssociationInput = {
+    update: XOR<UserUpdateWithoutUserClinicAssociationInput, UserUncheckedUpdateWithoutUserClinicAssociationInput>
+    create: XOR<UserCreateWithoutUserClinicAssociationInput, UserUncheckedCreateWithoutUserClinicAssociationInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserClinicAssociationInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserClinicAssociationInput, UserUncheckedUpdateWithoutUserClinicAssociationInput>
+  }
+
+  export type UserUpdateWithoutUserClinicAssociationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointment?: AppointmentUpdateManyWithoutUserNestedInput
+    clinic?: ClinicUpdateOneWithoutManagerNestedInput
+    account?: AccountUpdateManyWithoutUserNestedInput
+    session?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserClinicAssociationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointment?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    clinic?: ClinicUncheckedUpdateOneWithoutManagerNestedInput
+    account?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ClinicUpsertWithoutUserClinicAssociationInput = {
+    update: XOR<ClinicUpdateWithoutUserClinicAssociationInput, ClinicUncheckedUpdateWithoutUserClinicAssociationInput>
+    create: XOR<ClinicCreateWithoutUserClinicAssociationInput, ClinicUncheckedCreateWithoutUserClinicAssociationInput>
+    where?: ClinicWhereInput
+  }
+
+  export type ClinicUpdateToOneWithWhereWithoutUserClinicAssociationInput = {
+    where?: ClinicWhereInput
+    data: XOR<ClinicUpdateWithoutUserClinicAssociationInput, ClinicUncheckedUpdateWithoutUserClinicAssociationInput>
+  }
+
+  export type ClinicUpdateWithoutUserClinicAssociationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manager?: UserUpdateOneWithoutClinicNestedInput
+    appointments?: AppointmentUpdateManyWithoutClinicNestedInput
+    clinicService?: ClinicServiceUpdateManyWithoutClinicNestedInput
+  }
+
+  export type ClinicUncheckedUpdateWithoutUserClinicAssociationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUncheckedUpdateManyWithoutClinicNestedInput
+    clinicService?: ClinicServiceUncheckedUpdateManyWithoutClinicNestedInput
+  }
+
   export type UserCreateWithoutClinicInput = {
     id?: string
     name: string
@@ -13677,12 +15396,12 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment?: AppointmentCreateNestedManyWithoutUserInput
     account?: AccountCreateNestedManyWithoutUserInput
     session?: SessionCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClinicInput = {
@@ -13692,12 +15411,12 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     appointment?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     account?: AccountUncheckedCreateNestedManyWithoutUserInput
     session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClinicInput = {
@@ -13765,6 +15484,31 @@ export namespace Prisma {
     data: ClinicServiceCreateManyClinicInput | ClinicServiceCreateManyClinicInput[]
   }
 
+  export type UserClinicAssociationCreateWithoutClinicInput = {
+    id?: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserClinicAssociationInput
+  }
+
+  export type UserClinicAssociationUncheckedCreateWithoutClinicInput = {
+    id?: string
+    userId: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClinicAssociationCreateOrConnectWithoutClinicInput = {
+    where: UserClinicAssociationWhereUniqueInput
+    create: XOR<UserClinicAssociationCreateWithoutClinicInput, UserClinicAssociationUncheckedCreateWithoutClinicInput>
+  }
+
+  export type UserClinicAssociationCreateManyClinicInputEnvelope = {
+    data: UserClinicAssociationCreateManyClinicInput | UserClinicAssociationCreateManyClinicInput[]
+  }
+
   export type UserUpsertWithoutClinicInput = {
     update: XOR<UserUpdateWithoutClinicInput, UserUncheckedUpdateWithoutClinicInput>
     create: XOR<UserCreateWithoutClinicInput, UserUncheckedCreateWithoutClinicInput>
@@ -13783,12 +15527,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUpdateManyWithoutUserNestedInput
     account?: AccountUpdateManyWithoutUserNestedInput
     session?: SessionUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClinicInput = {
@@ -13798,12 +15542,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AppointmentUpsertWithWhereUniqueWithoutClinicInput = {
@@ -13851,6 +15595,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ClinicService"> | Date | string
   }
 
+  export type UserClinicAssociationUpsertWithWhereUniqueWithoutClinicInput = {
+    where: UserClinicAssociationWhereUniqueInput
+    update: XOR<UserClinicAssociationUpdateWithoutClinicInput, UserClinicAssociationUncheckedUpdateWithoutClinicInput>
+    create: XOR<UserClinicAssociationCreateWithoutClinicInput, UserClinicAssociationUncheckedCreateWithoutClinicInput>
+  }
+
+  export type UserClinicAssociationUpdateWithWhereUniqueWithoutClinicInput = {
+    where: UserClinicAssociationWhereUniqueInput
+    data: XOR<UserClinicAssociationUpdateWithoutClinicInput, UserClinicAssociationUncheckedUpdateWithoutClinicInput>
+  }
+
+  export type UserClinicAssociationUpdateManyWithWhereWithoutClinicInput = {
+    where: UserClinicAssociationScalarWhereInput
+    data: XOR<UserClinicAssociationUpdateManyMutationInput, UserClinicAssociationUncheckedUpdateManyWithoutClinicInput>
+  }
+
   export type UserCreateWithoutAppointmentInput = {
     id?: string
     name: string
@@ -13858,12 +15618,12 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     clinic?: ClinicCreateNestedOneWithoutManagerInput
     account?: AccountCreateNestedManyWithoutUserInput
     session?: SessionCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAppointmentInput = {
@@ -13873,12 +15633,12 @@ export namespace Prisma {
     image?: string | null
     phone?: string | null
     emailVerified?: Date | string | null
-    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
     clinic?: ClinicUncheckedCreateNestedOneWithoutManagerInput
     account?: AccountUncheckedCreateNestedManyWithoutUserInput
     session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAppointmentInput = {
@@ -13896,6 +15656,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     manager?: UserCreateNestedOneWithoutClinicInput
     clinicService?: ClinicServiceCreateNestedManyWithoutClinicInput
+    userClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutClinicInput
   }
 
   export type ClinicUncheckedCreateWithoutAppointmentsInput = {
@@ -13908,6 +15669,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     clinicService?: ClinicServiceUncheckedCreateNestedManyWithoutClinicInput
+    userClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutClinicInput
   }
 
   export type ClinicCreateOrConnectWithoutAppointmentsInput = {
@@ -13956,12 +15718,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinic?: ClinicUpdateOneWithoutManagerNestedInput
     account?: AccountUpdateManyWithoutUserNestedInput
     session?: SessionUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppointmentInput = {
@@ -13971,12 +15733,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinic?: ClinicUncheckedUpdateOneWithoutManagerNestedInput
     account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClinicUpsertWithoutAppointmentsInput = {
@@ -14000,6 +15762,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manager?: UserUpdateOneWithoutClinicNestedInput
     clinicService?: ClinicServiceUpdateManyWithoutClinicNestedInput
+    userClinicAssociation?: UserClinicAssociationUpdateManyWithoutClinicNestedInput
   }
 
   export type ClinicUncheckedUpdateWithoutAppointmentsInput = {
@@ -14012,6 +15775,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinicService?: ClinicServiceUncheckedUpdateManyWithoutClinicNestedInput
+    userClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutClinicNestedInput
   }
 
   export type AppointmentServiceUpsertWithWhereUniqueWithoutAppointmentInput = {
@@ -14167,6 +15931,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     manager?: UserCreateNestedOneWithoutClinicInput
     appointments?: AppointmentCreateNestedManyWithoutClinicInput
+    userClinicAssociation?: UserClinicAssociationCreateNestedManyWithoutClinicInput
   }
 
   export type ClinicUncheckedCreateWithoutClinicServiceInput = {
@@ -14179,6 +15944,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     appointments?: AppointmentUncheckedCreateNestedManyWithoutClinicInput
+    userClinicAssociation?: UserClinicAssociationUncheckedCreateNestedManyWithoutClinicInput
   }
 
   export type ClinicCreateOrConnectWithoutClinicServiceInput = {
@@ -14230,6 +15996,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manager?: UserUpdateOneWithoutClinicNestedInput
     appointments?: AppointmentUpdateManyWithoutClinicNestedInput
+    userClinicAssociation?: UserClinicAssociationUpdateManyWithoutClinicNestedInput
   }
 
   export type ClinicUncheckedUpdateWithoutClinicServiceInput = {
@@ -14242,6 +16009,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUncheckedUpdateManyWithoutClinicNestedInput
+    userClinicAssociation?: UserClinicAssociationUncheckedUpdateManyWithoutClinicNestedInput
   }
 
   export type AppointmentServiceUpsertWithWhereUniqueWithoutServiceInput = {
@@ -14288,6 +16056,14 @@ export namespace Prisma {
     id?: string
     sessionToken: string
     expires: Date | string
+  }
+
+  export type UserClinicAssociationCreateManyUserInput = {
+    id?: string
+    clinicId: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AppointmentUpdateWithoutUserInput = {
@@ -14382,6 +16158,30 @@ export namespace Prisma {
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserClinicAssociationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clinic?: ClinicUpdateOneRequiredWithoutUserClinicAssociationNestedInput
+  }
+
+  export type UserClinicAssociationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clinicId?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClinicAssociationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clinicId?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AppointmentCreateManyClinicInput = {
     id?: string
     doctorName: string
@@ -14397,6 +16197,14 @@ export namespace Prisma {
     name: string
     description?: string | null
     priceInCents: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserClinicAssociationCreateManyClinicInput = {
+    id?: string
+    userId: string
+    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14458,6 +16266,30 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     priceInCents?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClinicAssociationUpdateWithoutClinicInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserClinicAssociationNestedInput
+  }
+
+  export type UserClinicAssociationUncheckedUpdateWithoutClinicInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserClinicAssociationUncheckedUpdateManyWithoutClinicInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -149,6 +149,14 @@ exports.Prisma.UserScalarFieldEnum = {
   image: 'image',
   phone: 'phone',
   emailVerified: 'emailVerified',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserClinicAssociationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  clinicId: 'clinicId',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -214,6 +222,7 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   User: 'User',
+  UserClinicAssociation: 'UserClinicAssociation',
   Clinic: 'Clinic',
   Appointment: 'Appointment',
   AppointmentService: 'AppointmentService',
