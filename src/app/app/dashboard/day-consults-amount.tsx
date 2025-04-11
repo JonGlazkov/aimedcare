@@ -16,14 +16,14 @@ export default function DayConsultsAmountCard() {
         <CardTitle className="text-base font-semibold">
           Consultas (dia)
         </CardTitle>
-        <Activity className="h-4 w-4 text-muted-foreground" />
+        <Activity className="size-4 text-muted-foreground" />
       </CardHeader>
 
       <CardContent className="space-y-1">
         {dayConsultsAmount && (
           <>
             <span className="text-2xl font-bold tracking-tight">
-              {dayConsultsAmount.amount.toLocaleString('pt-BR')}
+              {dayConsultsAmount.amount?.toLocaleString('pt-BR')}
             </span>
             <p className="text-xs text-muted-foreground">
               {dayConsultsAmount.diffFromYesterday >= 0 ? (

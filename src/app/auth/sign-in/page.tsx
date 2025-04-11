@@ -1,6 +1,9 @@
+/* eslint-disable simple-import-sort/imports */
 'use client'
 import { useMutation } from '@tanstack/react-query'
-import { Helmet } from 'react-helmet-async'
+import { signIn } from 'next-auth/react'
+import Link from 'next/link'
+import { redirect, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -9,9 +12,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ToastAction } from '@/components/ui/toast'
 import { useToast } from '@/hooks/use-toast'
-import { signIn } from 'next-auth/react'
-import Link from 'next/link'
-import { redirect, useSearchParams } from 'next/navigation'
 
 const signUpForm = z.object({
   email: z.string().email(),
@@ -94,7 +94,6 @@ export default function SignIn() {
 
   return (
     <>
-      <Helmet title="Login" />
       <div className="p-8">
         <Button asChild variant="outline" className="absolute right-8 top-8">
           <Link href="/auth/sign-up">Nova clínica</Link>

@@ -17,14 +17,14 @@ export default function MonthConsultsAmountCard() {
         <CardTitle className="text-base font-semibold">
           Consultas (mês)
         </CardTitle>
-        <ClipboardPlus className="h-4 w-4 text-muted-foreground" />
+        <ClipboardPlus className="size-4 text-muted-foreground" />
       </CardHeader>
 
       <CardContent className="space-y-1">
         {monthConsultsAmount && (
           <>
             <span className="text-2xl font-bold tracking-tight">
-              {monthConsultsAmount.amount.toLocaleString('pt-BR')}
+              {monthConsultsAmount.amount?.toLocaleString('pt-BR')}
             </span>
             <p className="text-xs text-muted-foreground">
               {monthConsultsAmount.diffFromLastMonth >= 0 ? (

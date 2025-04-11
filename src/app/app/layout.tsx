@@ -1,6 +1,11 @@
+import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 
 import { Header } from '@/components/header'
+
+export const metadata: Metadata = {
+  title: { default: 'Dashboard', template: '%s | AI Medcare' },
+}
 
 export default function AppLayout({ children }: PropsWithChildren) {
   return (
