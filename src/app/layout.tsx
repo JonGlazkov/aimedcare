@@ -7,6 +7,7 @@ import { AppProvider } from '@/components/providers/app-provider'
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
   title: { default: 'AI Medcare', template: '%s | AI Medcare' },
+  manifest: "/manifest.json",
   icons: {
     icon: '/logo.png',
     shortcut: '/logo.png',
@@ -31,13 +32,17 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport = {
+  themeColor: "#004167",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>

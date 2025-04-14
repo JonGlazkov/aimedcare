@@ -1,0 +1,23 @@
+{
+    "name": "AI Medcare",
+    "short_name": "Medcare",
+    "description": "Bem Vindo à AI Medcare",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#004167",
+    "theme_color": "#004167",
+    "icons": [
+      {
+        "src": "/aimedcare-logo.png",
+        "sizes": "192x192",
+        "purpose": "maskable",
+        "type": "image/png"
+      },
+      {
+        "src": "/aimedcare-logo.png",
+        "sizes": "512x512",
+        "purpose": "any",
+        "type": "image/png"
+      }
+    ]
+  }
