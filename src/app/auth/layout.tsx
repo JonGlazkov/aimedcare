@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 export default async function AuthLayout({ children }: PropsWithChildren) {
   return (
     <>
-      <AuthLoading mutationKey={['validate-clinic-details', 'create-clinic']} />
+      <AuthLoading
+        mutationKey={['validate-clinic-details', 'create-clinic', 'auth']}
+      />
       <div className="grid min-h-screen grid-cols-2 antialiased">
         <div className="flex h-full flex-col justify-between border-r border-foreground/5 bg-muted text-muted-foreground">
           <div className="relative flex size-full items-center gap-3 bg-background-secondary text-lg font-medium text-foreground">

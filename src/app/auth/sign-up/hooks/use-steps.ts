@@ -1,3 +1,4 @@
+import { useIsMutating } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
@@ -13,6 +14,10 @@ export function useSteps() {
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const { currentStep, setCurrentStep } = useFormSteps()
+  const isAuthenticated = useIsMutating({
+    mutationKey: ['auth'],
+    status: 'success',
+  })
 
   const isLastStep = currentStep === count - 1
 
@@ -29,11 +34,15 @@ export function useSteps() {
   useEffect(() => {
     if (!api) return
 
-    if (session?.user && currentStep <= 2) {
+    if (session?.user && currentStep < 2) {
       api.scrollTo(2)
       setCurrentStep(2)
     }
-  }, [api, currentStep, setCurrentStep])
+    if (isAuthenticated && session?.user) {
+      api.scrollTo(2)
+      setCurrentStep(2)
+    }
+  }, [api, currentStep, session, isAuthenticated, setCurrentStep])
 
   useEffect(() => {
     if (!api) return

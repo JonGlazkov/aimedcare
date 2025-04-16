@@ -56,8 +56,6 @@ export default function SignUpLayout() {
   const handleFinish = () => {
     router.push('/app/dashboard')
     reset()
-    api?.reInit()
-    setCurrentStep(0)
   }
 
   return (
@@ -121,17 +119,17 @@ export default function SignUpLayout() {
                 <AuthStep />
               </CarouselItem>
               <CarouselItem
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    const submitButton =
-                      document.getElementById('submit-button')
+              // onKeyDown={(e) => {
+              //   if (e.key === 'Enter') {
+              //     const submitButton =
+              //       document.getElementById('submit-button')
 
-                    if (document.activeElement === submitButton) {
-                      submitButton?.click()
-                      e.preventDefault()
-                    }
-                  }
-                }}
+              //     if (document.activeElement === submitButton) {
+              //       submitButton?.click()
+              //       e.preventDefault()
+              //     }
+              //   }
+              // }}
               >
                 <ClinicDetailsStep
                   onSuccess={() => {
