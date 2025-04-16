@@ -8,9 +8,9 @@ export default function middleware(request: NextRequest) {
 
   const baseUrl = request.nextUrl.origin
 
-  if (!pathname.includes('/app') && token) {
-    return NextResponse.redirect(new URL(getUrl('/app/dashboard'), baseUrl))
-  }
+  // if (!pathname.includes('/app') && token) {
+  //   return NextResponse.redirect(new URL(getUrl('/app/dashboard'), baseUrl))
+  // }
 
   if (pathname.includes('/app') && !token) {
     return NextResponse.redirect(new URL(getUrl('/auth/sign-in'), baseUrl))
@@ -18,5 +18,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|apple.png).*)'],
 }
