@@ -72,6 +72,7 @@
         "react-dom": "19.0.0-rc.1",
         "react-helmet-async": "^2.0.5",
         "react-hook-form": "^7.55.0",
+        "react-phone-number-input": "^3.4.12",
         "react-resizable-panels": "^2.1.7",
         "recharts": "^2.15.2",
         "sonner": "^1.7.4",

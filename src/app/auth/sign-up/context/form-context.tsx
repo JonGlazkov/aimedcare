@@ -18,13 +18,8 @@ export const signUpFormSchema = z.object({
     .min(3, 'O endereço da clínica deve ter pelo menos 3 caracteres'),
   clinicPhone: z
     .string()
-    .min(3, 'O telefone da clínica deve ter pelo menos 3 caracteres')
-    .regex(
-      /^\(?\d{2}\)? ?(?:9\d{4}|\d{4})-\d{4}$/,
-      'O telefone da clínica deve ter o formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX',
-    ),
-
-  authProvider: z.enum(['google', 'apple']).nullable().default(null),
+    .min(9, 'O telefone da clínica deve ter pelo menos 9 caracteres')
+    .max(15, 'O telefone da clínica deve ter no máximo 15 caracteres'),
 })
 
 export type SignUpFormValues = z.infer<typeof signUpFormSchema>
@@ -49,7 +44,6 @@ export function SignUpFormProvider({ children }: PropsWithChildren) {
       clinicName: '',
       clinicAddress: '',
       clinicPhone: '',
-      authProvider: null,
     },
     mode: 'onChange',
   })

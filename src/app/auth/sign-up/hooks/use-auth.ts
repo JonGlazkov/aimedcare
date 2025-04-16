@@ -2,15 +2,14 @@
 // eslint-disable-next-line simple-import-sort/imports
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useFormContext } from 'react-hook-form'
 
 import { useToast } from '@/hooks/use-toast'
 
 import { useMutation } from '@tanstack/react-query'
-import { AuthProvider, SignUpFormValues } from '../context/form-context'
+import { AuthProvider, useFormSteps } from '../context/form-context'
 
 export function useAuth() {
-  const { setValue } = useFormContext<SignUpFormValues>()
+  const { setCurrentStep } = useFormSteps()
   const { toast } = useToast()
   const router = useRouter()
 
@@ -22,13 +21,12 @@ export function useAuth() {
     mutationFn: (provider: AuthProvider) =>
       signIn(provider, {
         redirect: false,
-        callbackUrl: `${window.location.origin}/auth/sign-up?step=clinic-details`,
+        callbackUrl: `${window.location.origin}/auth/sign-up`,
       }),
     mutationKey: ['auth'],
-    onSuccess: (_, provider) => {
-      console.log(provider)
-      setValue('authProvider', provider)
-      router.push('/auth/sign-up?step=clinic-details')
+    onSuccess: () => {
+      setCurrentStep(2)
+      router.push('/auth/sign-up')
     },
     onError: (error, provider) => {
       toast({

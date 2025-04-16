@@ -1,10 +1,11 @@
+import { ArrowRight, LogIn, LogOut } from 'lucide-react'
+import Link from 'next/link'
+
 import { SignInButton } from '@/components/auth/signin-button'
 import { SignOutButton } from '@/components/auth/signout-button'
 import { UserMenu } from '@/components/auth/user-menu'
 import { Button } from '@/components/ui/button'
 import { auth } from '@/lib/auth'
-import { ArrowRight, LogIn, LogOut } from 'lucide-react'
-import Link from 'next/link'
 
 export default async function Home() {
   const session = await auth()

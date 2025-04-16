@@ -41,6 +41,7 @@ export async function validateClinicDetails(
 }
 
 export async function createClinic(formData: z.infer<typeof signUpFormSchema>) {
+  await new Promise((resolve) => setTimeout(resolve, 3000))
   const session = await auth()
   const { managerName, clinicName, clinicAddress, clinicPhone } = formData
 

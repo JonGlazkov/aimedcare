@@ -3,13 +3,15 @@
 import { useMutation } from '@tanstack/react-query'
 import { useFormContext } from 'react-hook-form'
 
+import GlobalLoading from '@/components/auth-loading'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { PhoneInput } from '@/components/ui/phone-input'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
 
-import { validateClinicDetails } from '../actions'
+import { createClinic, validateClinicDetails } from '../actions'
 import type { SignUpFormValues } from '../context/form-context'
 
 interface ClinicDetailsStepProps {
@@ -19,70 +21,84 @@ interface ClinicDetailsStepProps {
 export default function ClinicDetailsStep({
   onSuccess,
 }: ClinicDetailsStepProps) {
-  const { toast } = useToast()
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useFormContext<SignUpFormValues>()
+  const { setValue } = useFormContext<SignUpFormValues>()
+  const { toast } = useToast()
 
-  const { mutateAsync: validateForm, isPending } = useMutation({
+  const { mutateAsync: validateFormFn, isPending: isValidating } = useMutation({
     mutationKey: ['validate-clinic-details'],
     mutationFn: validateClinicDetails,
-    onSuccess: (data) => {
-      if (data.success) {
-        toast({
-          title: 'Validação Completa',
-        })
-        onSuccess()
-      } else {
-        toast({
-          title: 'Erro de Validação',
-          description: data.message,
-          variant: 'destructive',
-        })
-      }
+    onError: (error) => {
+      toast({
+        title: 'Erro de Validação',
+        description: error.message,
+        variant: 'destructive',
+      })
+
+      console.log(error)
+    },
+  })
+
+  const { mutateAsync: createClinicFn, isPending: isCreating } = useMutation({
+    mutationKey: ['create-clinic'],
+    mutationFn: createClinic,
+    onSuccess: () => {
+      onSuccess()
+
+      toast({
+        title: 'Clínica criada com sucesso',
+        description: 'Você pode agora acessar o painel da sua clínica',
+      })
+    },
+    onError: (error) => {
+      toast({
+        title: 'Erro ao criar clínica',
+        description: error.message,
+        variant: 'destructive',
+      })
+
+      console.log(error)
     },
   })
 
   async function onSubmit(data: SignUpFormValues) {
-    await validateForm(data)
-    console.log(data)
-    // try {
-    //   // Get current form values for this step
-    //   const data = {
-    //     managerName: getValues('managerName'),
-    //     clinicName: getValues('clinicName'),
-    //     clinicAddress: getValues('clinicAddress'),
-    //     clinicPhone: getValues('clinicPhone'),
-    //   }
-
-    //   // Validate with server action
-    //   const result = await validateClinicDetails(data)
-
-    //   if (result.success) {
-    //     onSuccess()
-    //   } else {
-    //     toast({
-    //       title: 'Erro de Validação',
-    //       description: result.message,
-    //       variant: 'destructive',
-    //     })
-    //   }
-    // } catch (error) {
-    //   toast({
-    //     title: 'Erro',
-    //     description: 'Algo deu errado. Por favor, tente novamente.',
-    //     variant: 'destructive',
-    //   })
-    // } finally {
-    //   setLoading(false)
-    // }
+    try {
+      await validateFormFn(data).then(() => {
+        toast({
+          title: 'Validação bem-sucedida',
+          description:
+            'Os dados da clínica foram validados com sucesso, aguarde enquanto processamos as informações.',
+        })
+      })
+      await createClinicFn(data)
+    } catch (error) {
+      if (error instanceof Error) {
+        toast({
+          title: 'Erro ao criar clínica',
+          description: error.message,
+          variant: 'destructive',
+        })
+      } else {
+        toast({
+          title: 'Erro inesperado',
+          description: 'Ocorreu um erro inesperado. Tente novamente.',
+          variant: 'destructive',
+        })
+      }
+    }
   }
 
   return (
     <div className="flex flex-col space-y-3 p-4">
+      <GlobalLoading
+        mutationKey={
+          isValidating ? ['validate-clinic-details'] : ['create-clinic']
+        }
+      />
       <h1 className="text-4xl font-bold leading-tight">
         Informe os dados solicitados
       </h1>
@@ -124,12 +140,19 @@ export default function ClinicDetailsStep({
 
         <div className="space-y-2">
           <Label htmlFor="clinicPhone">Telefone da Clínica</Label>
-          <Input
-            id="clinicPhone"
-            type="tel"
+          <PhoneInput
+            id="phone"
+            placeholder="Telefone"
+            autoCapitalize="none"
+            autoComplete="tel"
+            autoCorrect="off"
+            defaultCountry="BR"
+            required
+            maxLength={15}
             {...register('clinicPhone')}
-            placeholder="(11) 98765-4321"
+            onChange={(value) => setValue('clinicPhone', value)}
           />
+
           {errors.clinicPhone && (
             <p className="text-sm text-destructive">
               {errors.clinicPhone.message}
@@ -151,8 +174,13 @@ export default function ClinicDetailsStep({
           )}
         </div>
 
-        <Button type="submit" className="mt-2 w-full" disabled={isPending}>
-          {isPending ? 'Processando...' : 'Próximo'}
+        <Button
+          id="submit-button"
+          type="submit"
+          className="mt-2 w-full"
+          disabled={isValidating || isCreating}
+        >
+          {isValidating || isCreating ? 'Processando...' : 'Próximo'}
         </Button>
       </form>
     </div>

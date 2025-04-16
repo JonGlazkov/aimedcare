@@ -1,8 +1,6 @@
 /* eslint-disable simple-import-sort/imports */
 'use client'
 
-import router from 'next/router'
-
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import {
@@ -11,12 +9,15 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel'
 
+import { Progress } from '@/components/ui/progress'
 import { useKeyboardNavigation } from '@/context/use-keyboard-navigation'
 import { CornerDownLeft } from 'lucide-react'
-import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useFormContext } from 'react-hook-form'
 import { useSteps } from './hooks/use-steps'
 import AuthStep from './steps/auth-step'
 import ClinicDetailsStep from './steps/clinic-details-step'
+import SuccessStep from './steps/success-step'
 import WelcomeStep from './steps/welcome-step'
 
 export default function SignUpLayout() {
@@ -29,8 +30,10 @@ export default function SignUpLayout() {
     handlePrevious,
     isLastStep,
     api,
+    setCurrentStep,
   } = useSteps()
-  const { status } = useSession()
+  const router = useRouter()
+  const { reset } = useFormContext()
 
   useKeyboardNavigation({
     api,
@@ -41,24 +44,41 @@ export default function SignUpLayout() {
     onPrevious: handlePrevious,
   })
 
+  const getProgressBarValue = () => {
+    if (isLastStep) {
+      return 100
+    }
+
+    const value = ((currentStep + 1) / count) * 100
+    return value
+  }
+
+  const handleFinish = () => {
+    router.push('/app/dashboard')
+    reset()
+    api?.reInit()
+    setCurrentStep(0)
+  }
+
   return (
     <div className="flex size-3/4 flex-col items-center justify-center ">
-      <div className="mb-3 mr-auto">
+      <div className="mr-auto">
         {/* <h2 className="text-2xl font-semibold tracking-tight">
           {getStepTitle()}
-        </h2> */}
+          </h2> */}
         <p className="text-muted-foreground">
           Passo {currentStep + 1} de {count}
         </p>
       </div>
+      <Progress className="my-2 w-full" value={getProgressBarValue()} />
       <Card className="flex size-full flex-col items-center justify-between ">
         <CardContent className="flex size-full flex-col items-center justify-center">
           <Carousel
             opts={{
-              startIndex: status === 'authenticated' ? 2 : 0,
               dragFree: false,
               skipSnaps: false,
               watchDrag: false,
+              inViewThreshold: 0.5,
             }}
             setApi={setApi}
             className="w-full"
@@ -70,43 +90,29 @@ export default function SignUpLayout() {
               <CarouselItem
                 onKeyDown={(e) => {
                   if (e.key === 'Tab') {
-                    const buttons = document.querySelectorAll('button')
-                    const firstButton = buttons[0]
-                    const secondButton = buttons[1]
+                    const googleButton = document.getElementById('google-login')
+                    const appleButton = document.getElementById('apple-login')
 
-                    if (!e.shiftKey) {
-                      if (document.activeElement === firstButton) {
-                        secondButton.focus()
-                        e.preventDefault()
-                      }
+                    if (document.activeElement === googleButton) {
+                      googleButton?.focus()
+                      e.preventDefault()
                     }
-                    if (e.shiftKey) {
-                      if (document.activeElement === secondButton) {
-                        firstButton.focus()
-                        e.preventDefault()
-                      }
+                    if (document.activeElement === appleButton) {
+                      appleButton?.focus()
+                      e.preventDefault()
                     }
-                    if (document.activeElement === firstButton) {
-                      firstButton.focus()
-                    }
-                    if (document.activeElement === secondButton) {
-                      secondButton.focus()
-                    }
-
-                    e.preventDefault()
                   }
 
                   if (e.key === 'Enter') {
-                    const buttons = document.querySelectorAll('button')
-                    const firstButton = buttons[0]
-                    const secondButton = buttons[1]
+                    const googleButton = document.getElementById('google-login')
+                    const appleButton = document.getElementById('apple-login')
 
-                    if (document.activeElement === firstButton) {
-                      firstButton.click()
+                    if (document.activeElement === googleButton) {
+                      googleButton?.click()
                       e.preventDefault()
                     }
-                    if (document.activeElement === secondButton) {
-                      secondButton.click()
+                    if (document.activeElement === appleButton) {
+                      appleButton?.click()
                       e.preventDefault()
                     }
                   }
@@ -114,8 +120,28 @@ export default function SignUpLayout() {
               >
                 <AuthStep />
               </CarouselItem>
-              <CarouselItem>
-                <ClinicDetailsStep onSuccess={() => api?.scrollNext()} />
+              <CarouselItem
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    const submitButton =
+                      document.getElementById('submit-button')
+
+                    if (document.activeElement === submitButton) {
+                      submitButton?.click()
+                      e.preventDefault()
+                    }
+                  }
+                }}
+              >
+                <ClinicDetailsStep
+                  onSuccess={() => {
+                    api?.scrollNext(true)
+                    setCurrentStep(3)
+                  }}
+                />
+              </CarouselItem>
+              <CarouselItem onKeyDown={(e) => e.preventDefault()}>
+                <SuccessStep />
               </CarouselItem>
             </CarouselContent>
           </Carousel>
@@ -166,7 +192,7 @@ export default function SignUpLayout() {
           )}
 
           {isLastStep && (
-            <Button size="sm" onClick={() => router.push('/dashboard')}>
+            <Button size="sm" onClick={handleFinish}>
               Ir para o Dashboard
             </Button>
           )}

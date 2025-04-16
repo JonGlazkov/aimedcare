@@ -25,6 +25,7 @@ export default function AuthStep() {
       <div className="my-auto flex w-full flex-col items-center space-y-5">
         {/* Botão do Google com ícone correto */}
         <Button
+          id="google-login"
           variant="outline"
           className="flex w-2/3 items-center justify-center gap-2"
           onClick={() => handleSocialLogin('google')}
@@ -41,6 +42,7 @@ export default function AuthStep() {
         </div>
 
         <Button
+          id="apple-login"
           variant="outline"
           className="flex w-2/3 items-center justify-center gap-2"
           onClick={() => handleSocialLogin('apple')}

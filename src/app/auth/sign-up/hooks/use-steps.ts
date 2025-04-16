@@ -1,4 +1,4 @@
-import { useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 import { CarouselApi } from '@/components/ui/carousel'
@@ -7,13 +7,12 @@ import { useToast } from '@/hooks/use-toast'
 import { useFormSteps } from '../context/form-context'
 
 export function useSteps() {
+  const { data: session } = useSession()
   const [api, setApi] = useState<CarouselApi>()
   const [count, setCount] = useState(0)
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const { currentStep, setCurrentStep } = useFormSteps()
-  const searchParams = useSearchParams()
-  const stepParams = searchParams.get('step')
 
   const isLastStep = currentStep === count - 1
 
@@ -30,11 +29,11 @@ export function useSteps() {
   useEffect(() => {
     if (!api) return
 
-    if (stepParams === 'clinic-details') {
+    if (session?.user && currentStep <= 2) {
       api.scrollTo(2)
       setCurrentStep(2)
     }
-  }, [api, stepParams, setCurrentStep])
+  }, [api, currentStep, setCurrentStep])
 
   useEffect(() => {
     if (!api) return
@@ -49,7 +48,7 @@ export function useSteps() {
 
     setLoading(true)
     try {
-      if (currentStep === 0) return api.scrollNext()
+      if (currentStep === 0) return api.scrollNext(true)
     } catch (error) {
       toast({
         title: 'Erro ao avançar',
@@ -64,7 +63,7 @@ export function useSteps() {
   const handlePrevious = async () => {
     if (!api) return
 
-    api.scrollPrev()
+    api.scrollPrev(true)
   }
 
   const getStepTitle = () => {
