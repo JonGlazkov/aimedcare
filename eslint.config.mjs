@@ -13,10 +13,10 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.config({extends: ["next/core-web-vitals", '@rocketseat/eslint-config/next']}),
+  ...compat.config({extends: ['@rocketseat/eslint-config/next']}),
   {
     ignores: [
-      '**/.next/',
+      '**/.next/'
     ],
   },
   {

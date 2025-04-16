@@ -29,12 +29,6 @@ yarn-error.log*
 .env
 .env*.local
 
-<<<<<<< HEAD
-=======
-# Prisma DB
-/prisma/dev.db
-
->>>>>>> 6b36edb (initial master commit)
 # vercel
 .vercel
 
