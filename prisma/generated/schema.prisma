@@ -108,6 +108,8 @@ model Clinic {
   description           String?
   address               String?
   phone                 String?
+  subdomain             String                  @unique
+  customDomain          String?                 @unique @map("custom_domain")
   managerId             String?                 @unique @map("manager_id")
   manager               User?                   @relation(fields: [managerId], references: [id], onDelete: SetNull)
   createdAt             DateTime                @default(now()) @map("created_at")

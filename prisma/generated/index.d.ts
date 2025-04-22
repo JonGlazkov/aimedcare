@@ -7297,6 +7297,8 @@ export namespace Prisma {
     description: string | null
     address: string | null
     phone: string | null
+    subdomain: string | null
+    customDomain: string | null
     managerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7308,6 +7310,8 @@ export namespace Prisma {
     description: string | null
     address: string | null
     phone: string | null
+    subdomain: string | null
+    customDomain: string | null
     managerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7319,6 +7323,8 @@ export namespace Prisma {
     description: number
     address: number
     phone: number
+    subdomain: number
+    customDomain: number
     managerId: number
     createdAt: number
     updatedAt: number
@@ -7332,6 +7338,8 @@ export namespace Prisma {
     description?: true
     address?: true
     phone?: true
+    subdomain?: true
+    customDomain?: true
     managerId?: true
     createdAt?: true
     updatedAt?: true
@@ -7343,6 +7351,8 @@ export namespace Prisma {
     description?: true
     address?: true
     phone?: true
+    subdomain?: true
+    customDomain?: true
     managerId?: true
     createdAt?: true
     updatedAt?: true
@@ -7354,6 +7364,8 @@ export namespace Prisma {
     description?: true
     address?: true
     phone?: true
+    subdomain?: true
+    customDomain?: true
     managerId?: true
     createdAt?: true
     updatedAt?: true
@@ -7438,6 +7450,8 @@ export namespace Prisma {
     description: string | null
     address: string | null
     phone: string | null
+    subdomain: string
+    customDomain: string | null
     managerId: string | null
     createdAt: Date
     updatedAt: Date
@@ -7466,6 +7480,8 @@ export namespace Prisma {
     description?: boolean
     address?: boolean
     phone?: boolean
+    subdomain?: boolean
+    customDomain?: boolean
     managerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7482,6 +7498,8 @@ export namespace Prisma {
     description?: boolean
     address?: boolean
     phone?: boolean
+    subdomain?: boolean
+    customDomain?: boolean
     managerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7494,6 +7512,8 @@ export namespace Prisma {
     description?: boolean
     address?: boolean
     phone?: boolean
+    subdomain?: boolean
+    customDomain?: boolean
     managerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7506,12 +7526,14 @@ export namespace Prisma {
     description?: boolean
     address?: boolean
     phone?: boolean
+    subdomain?: boolean
+    customDomain?: boolean
     managerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ClinicOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "address" | "phone" | "managerId" | "createdAt" | "updatedAt", ExtArgs["result"]["clinic"]>
+  export type ClinicOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "address" | "phone" | "subdomain" | "customDomain" | "managerId" | "createdAt" | "updatedAt", ExtArgs["result"]["clinic"]>
   export type ClinicInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     manager?: boolean | Clinic$managerArgs<ExtArgs>
     appointments?: boolean | Clinic$appointmentsArgs<ExtArgs>
@@ -7540,6 +7562,8 @@ export namespace Prisma {
       description: string | null
       address: string | null
       phone: string | null
+      subdomain: string
+      customDomain: string | null
       managerId: string | null
       createdAt: Date
       updatedAt: Date
@@ -7975,6 +7999,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Clinic", 'String'>
     readonly address: FieldRef<"Clinic", 'String'>
     readonly phone: FieldRef<"Clinic", 'String'>
+    readonly subdomain: FieldRef<"Clinic", 'String'>
+    readonly customDomain: FieldRef<"Clinic", 'String'>
     readonly managerId: FieldRef<"Clinic", 'String'>
     readonly createdAt: FieldRef<"Clinic", 'DateTime'>
     readonly updatedAt: FieldRef<"Clinic", 'DateTime'>
@@ -12033,6 +12059,8 @@ export namespace Prisma {
     description: 'description',
     address: 'address',
     phone: 'phone',
+    subdomain: 'subdomain',
+    customDomain: 'customDomain',
     managerId: 'managerId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12479,6 +12507,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Clinic"> | string | null
     address?: StringNullableFilter<"Clinic"> | string | null
     phone?: StringNullableFilter<"Clinic"> | string | null
+    subdomain?: StringFilter<"Clinic"> | string
+    customDomain?: StringNullableFilter<"Clinic"> | string | null
     managerId?: StringNullableFilter<"Clinic"> | string | null
     createdAt?: DateTimeFilter<"Clinic"> | Date | string
     updatedAt?: DateTimeFilter<"Clinic"> | Date | string
@@ -12494,6 +12524,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
+    subdomain?: SortOrder
+    customDomain?: SortOrderInput | SortOrder
     managerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12505,6 +12537,8 @@ export namespace Prisma {
 
   export type ClinicWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    subdomain?: string
+    customDomain?: string
     managerId?: string
     AND?: ClinicWhereInput | ClinicWhereInput[]
     OR?: ClinicWhereInput[]
@@ -12519,7 +12553,7 @@ export namespace Prisma {
     appointments?: AppointmentListRelationFilter
     clinicService?: ClinicServiceListRelationFilter
     userClinicAssociation?: UserClinicAssociationListRelationFilter
-  }, "id" | "managerId">
+  }, "id" | "subdomain" | "customDomain" | "managerId">
 
   export type ClinicOrderByWithAggregationInput = {
     id?: SortOrder
@@ -12527,6 +12561,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
+    subdomain?: SortOrder
+    customDomain?: SortOrderInput | SortOrder
     managerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12544,6 +12580,8 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Clinic"> | string | null
     address?: StringNullableWithAggregatesFilter<"Clinic"> | string | null
     phone?: StringNullableWithAggregatesFilter<"Clinic"> | string | null
+    subdomain?: StringWithAggregatesFilter<"Clinic"> | string
+    customDomain?: StringNullableWithAggregatesFilter<"Clinic"> | string | null
     managerId?: StringNullableWithAggregatesFilter<"Clinic"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Clinic"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Clinic"> | Date | string
@@ -13115,6 +13153,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     manager?: UserCreateNestedOneWithoutClinicInput
@@ -13129,6 +13169,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     managerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13143,6 +13185,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manager?: UserUpdateOneWithoutClinicNestedInput
@@ -13157,6 +13201,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     managerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13171,6 +13217,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     managerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13182,6 +13230,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13192,6 +13242,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     managerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13807,6 +13859,8 @@ export namespace Prisma {
     description?: SortOrder
     address?: SortOrder
     phone?: SortOrder
+    subdomain?: SortOrder
+    customDomain?: SortOrder
     managerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13818,6 +13872,8 @@ export namespace Prisma {
     description?: SortOrder
     address?: SortOrder
     phone?: SortOrder
+    subdomain?: SortOrder
+    customDomain?: SortOrder
     managerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13829,6 +13885,8 @@ export namespace Prisma {
     description?: SortOrder
     address?: SortOrder
     phone?: SortOrder
+    subdomain?: SortOrder
+    customDomain?: SortOrder
     managerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14982,6 +15040,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointments?: AppointmentCreateNestedManyWithoutClinicInput
@@ -14995,6 +15055,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointments?: AppointmentUncheckedCreateNestedManyWithoutClinicInput
@@ -15137,6 +15199,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUpdateManyWithoutClinicNestedInput
@@ -15150,6 +15214,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUncheckedUpdateManyWithoutClinicNestedInput
@@ -15286,6 +15352,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     manager?: UserCreateNestedOneWithoutClinicInput
@@ -15299,6 +15367,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     managerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15369,6 +15439,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manager?: UserUpdateOneWithoutClinicNestedInput
@@ -15382,6 +15454,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     managerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15652,6 +15726,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     manager?: UserCreateNestedOneWithoutClinicInput
@@ -15665,6 +15741,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     managerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15758,6 +15836,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manager?: UserUpdateOneWithoutClinicNestedInput
@@ -15771,6 +15851,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     managerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15927,6 +16009,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     manager?: UserCreateNestedOneWithoutClinicInput
@@ -15940,6 +16024,8 @@ export namespace Prisma {
     description?: string | null
     address?: string | null
     phone?: string | null
+    subdomain: string
+    customDomain?: string | null
     managerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15992,6 +16078,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manager?: UserUpdateOneWithoutClinicNestedInput
@@ -16005,6 +16093,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    customDomain?: NullableStringFieldUpdateOperationsInput | string | null
     managerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

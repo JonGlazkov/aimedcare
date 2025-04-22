@@ -168,6 +168,8 @@ exports.Prisma.ClinicScalarFieldEnum = {
   description: 'description',
   address: 'address',
   phone: 'phone',
+  subdomain: 'subdomain',
+  customDomain: 'customDomain',
   managerId: 'managerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

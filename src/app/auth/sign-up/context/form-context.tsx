@@ -1,6 +1,5 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useSession } from 'next-auth/react'
 import { createContext, PropsWithChildren, useContext, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -8,8 +7,6 @@ import { z } from 'zod'
 export type AuthProvider = 'google' | 'apple'
 
 export const signUpFormSchema = z.object({
-  managerName: z.string().min(3, 'O nome deve ter pelo menos 3 caracteres'),
-
   clinicName: z
     .string()
     .min(3, 'O nome da clínica deve ter pelo menos 3 caracteres'),
@@ -34,13 +31,11 @@ export const FormStepsContext = createContext<IFormStepsContext | undefined>(
 )
 
 export function SignUpFormProvider({ children }: PropsWithChildren) {
-  const { data: session } = useSession()
   const [currentStep, setCurrentStep] = useState(0)
 
   const values = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
-      managerName: session?.user?.name || '',
       clinicName: '',
       clinicAddress: '',
       clinicPhone: '',

@@ -4,6 +4,8 @@ import { Check } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useFormContext } from 'react-hook-form'
 
+import { getSubdomain } from '@/lib/getSubdomain'
+
 import { SignUpFormValues } from '../context/form-context'
 
 export default function SuccessStep() {
@@ -11,6 +13,9 @@ export default function SuccessStep() {
   const { getValues } = useFormContext<SignUpFormValues>()
 
   const formData = getValues()
+
+  const domain = `https://${getSubdomain(formData.clinicName)}.${window.location.host.replace(':3000', '')}`
+  localStorage.setItem('domain', domain)
 
   return (
     <div className=" flex size-full flex-col items-center justify-between space-y-12 text-center">
@@ -41,11 +46,14 @@ export default function SuccessStep() {
           </p>
           <p className="text-sm">
             <strong>Nome do Proprietário:</strong>{' '}
-            {formData.managerName || 'N/A'}
+            {session?.user?.name || 'N/A'}
           </p>
           <p className="text-sm">
             <strong>Email do Proprietário:</strong>{' '}
             {session?.user?.email || 'N/A'}
+          </p>
+          <p className="text-sm">
+            <strong>Subdominio:</strong> {domain || 'N/A'}
           </p>
         </div>
       </div>

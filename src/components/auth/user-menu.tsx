@@ -1,5 +1,10 @@
 'use client'
 
+// eslint-disable-next-line simple-import-sort/imports
+import { LogIn, LogOut } from 'lucide-react'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -9,9 +14,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
-import { LogIn, LogOut } from 'lucide-react'
-import { signIn, signOut, useSession } from 'next-auth/react'
-import Link from 'next/link'
 
 export const UserMenu = () => {
   const { data: session, status } = useSession()

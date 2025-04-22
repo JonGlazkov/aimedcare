@@ -1,13 +1,14 @@
 'use client'
+// eslint-disable-next-line simple-import-sort/imports
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Building, ChevronDown, LogOut } from 'lucide-react'
+import { signOut, useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
 import { getManagedClinic } from '@/app/api/get-managed-clinic/route'
-import { getProfile } from '@/app/api/get-profile/route'
 
-import { signOut } from 'next-auth/react'
-import { redirect } from 'next/navigation'
 import ClinicProfileDialog from './clinic-profile-dialog'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Button } from './ui/button'
 import { Dialog, DialogTrigger } from './ui/dialog'
 import {
@@ -21,11 +22,9 @@ import {
 import { Skeleton } from './ui/skeleton'
 
 export function AccountMenu() {
-  const { data: profile, isLoading: isLoadingProfile } = useQuery({
-    queryKey: ['profile'],
-    queryFn: getProfile,
-    staleTime: Infinity,
-  })
+  const { data: session, status } = useSession()
+
+  const isLoadingProfile = status === 'loading'
 
   const { data: managedClinic, isLoading: isLoadingManagedClinic } = useQuery({
     queryKey: ['managed-clinic'],
@@ -34,11 +33,13 @@ export function AccountMenu() {
   })
 
   const { mutateAsync: signOutFn, isPending: isSigningOut } = useMutation({
-    mutationFn:() => signOut({ redirect: true }),
+    mutationFn: () => signOut({ redirect: true }),
     onSuccess: () => {
       redirect('/auth/sign-in')
     },
   })
+
+  console.log(session)
 
   return (
     <Dialog>
@@ -57,20 +58,35 @@ export function AccountMenu() {
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuContent align="end" className="w-64">
           <DropdownMenuLabel className="flex flex-col">
             {isLoadingProfile ? (
-              <div className="space-y-1.5">
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-3 w-32" />
+              <div className="flex flex-row justify-between">
+                <div className="space-y-1.5">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-3 w-32" />
+                </div>
+                <Skeleton className="size-10 animate-pulse rounded-full bg-muted" />
               </div>
             ) : (
-              <>
-                <span>{profile?.name}</span>
-                <span className="text-muted-foreground text-xs font-normal">
-                  {profile?.email}
-                </span>
-              </>
+              <div className="flex flex-row justify-between">
+                <div className="flex flex-col">
+                  <span>{session?.user?.name}</span>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    {session?.user?.email}
+                  </span>
+                </div>
+
+                <Avatar className="size-8">
+                  <AvatarImage
+                    src={session?.user?.image ?? ''}
+                    alt={session?.user?.name ?? ''}
+                  />
+                  <AvatarFallback>
+                    {session?.user?.email?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
             )}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />

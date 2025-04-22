@@ -2,13 +2,12 @@
 import { z } from 'zod'
 
 import { auth } from '@/lib/auth'
+import { getSubdomain } from '@/lib/getSubdomain'
 import { prisma } from '@/lib/prisma'
 
 import type { signUpFormSchema } from './context/form-context'
 
 const clinicDetailsValidationSchema = z.object({
-  managerName: z.string().min(3, 'O nome do responsável é obrigatório'),
-
   clinicName: z.string().min(3, 'O nome da clínica é obrigatório'),
   clinicAddress: z
     .string()
@@ -43,14 +42,26 @@ export async function validateClinicDetails(
 export async function createClinic(formData: z.infer<typeof signUpFormSchema>) {
   await new Promise((resolve) => setTimeout(resolve, 3000))
   const session = await auth()
-  const { managerName, clinicName, clinicAddress, clinicPhone } = formData
+  const { clinicName, clinicAddress, clinicPhone } = formData
 
   if (!session || !session.user) {
-    throw new Error('User not authenticated')
+    throw new Error('Usuário não autenticado')
   }
 
   if (!session.user.email) {
-    throw new Error('User email not found')
+    throw new Error('Email do usuário não encontrado')
+  }
+
+  const subdomain = getSubdomain(clinicName)
+
+  const existingClinic = await prisma.clinic.findUnique({
+    where: {
+      subdomain,
+    },
+  })
+
+  if (existingClinic) {
+    throw new Error('Já existe uma clínica com esse nome')
   }
 
   const { id: clinicId } = await prisma.clinic.create({
@@ -58,11 +69,11 @@ export async function createClinic(formData: z.infer<typeof signUpFormSchema>) {
       name: clinicName,
       address: clinicAddress ?? null,
       phone: clinicPhone,
-
+      subdomain,
       manager: {
         connectOrCreate: {
-          where: { name: managerName, email: session.user.email },
-          create: { name: managerName, email: session.user.email },
+          where: { name: session.user.name!, email: session.user.email },
+          create: { name: session.user.name!, email: session.user.email },
         },
       },
     },
@@ -71,6 +82,17 @@ export async function createClinic(formData: z.infer<typeof signUpFormSchema>) {
   const { id: userId } = await prisma.user.findFirstOrThrow({
     where: { email: session.user.email },
   })
+
+  const existingAssociation = await prisma.userClinicAssociation.findFirst({
+    where: {
+      userId,
+      clinicId,
+    },
+  })
+
+  if (existingAssociation) {
+    throw new Error('Usuário já associado a essa clínica')
+  }
 
   await prisma.userClinicAssociation.create({
     data: {

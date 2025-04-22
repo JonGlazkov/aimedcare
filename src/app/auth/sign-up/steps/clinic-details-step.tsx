@@ -160,20 +160,6 @@ export default function ClinicDetailsStep({
           )}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="name">Nome do Responsável</Label>
-          <Input
-            id="name"
-            {...register('managerName')}
-            placeholder="Dr. João Silva"
-          />
-          {errors.managerName && (
-            <p className="text-sm text-destructive">
-              {errors.managerName.message}
-            </p>
-          )}
-        </div>
-
         <Button
           id="submit-button"
           type="submit"
