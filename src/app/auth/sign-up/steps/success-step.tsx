@@ -4,7 +4,7 @@ import { Check } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useFormContext } from 'react-hook-form'
 
-import { getSubdomain } from '@/lib/getSubdomain'
+import { getSubdomain } from '@/lib/get-subdomain'
 
 import { SignUpFormValues } from '../context/form-context'
 

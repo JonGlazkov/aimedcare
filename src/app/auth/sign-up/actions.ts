@@ -2,7 +2,7 @@
 import { z } from 'zod'
 
 import { auth } from '@/lib/auth'
-import { getSubdomain } from '@/lib/getSubdomain'
+import { getSubdomain } from '@/lib/get-subdomain'
 import { prisma } from '@/lib/prisma'
 
 import type { signUpFormSchema } from './context/form-context'
