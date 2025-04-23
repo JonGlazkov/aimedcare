@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/carousel'
 
 import { Progress } from '@/components/ui/progress'
-import { useKeyboardNavigation } from '@/context/use-keyboard-navigation'
+import { useKeyboardNavigation } from '@/hooks/use-keyboard-navigation'
 import { CornerDownLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'

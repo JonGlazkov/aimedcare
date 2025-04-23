@@ -182,6 +182,7 @@ exports.Prisma.AppointmentScalarFieldEnum = {
   totalPriceInCents: 'totalPriceInCents',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  status: 'status',
   clinicId: 'clinicId',
   userId: 'userId'
 };
@@ -217,6 +218,15 @@ exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN',
   MANAGER: 'MANAGER'
+};
+
+exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PROCESSING: 'PROCESSING',
+  AWAITING_PAYMENT: 'AWAITING_PAYMENT',
+  CANCELLED: 'CANCELLED',
+  COMPLETED: 'COMPLETED'
 };
 
 exports.Prisma.ModelName = {

@@ -2,7 +2,8 @@ import { dehydrate } from '@tanstack/react-query'
 import { useCallback } from 'react'
 
 import { queryClient } from '@/lib/react-query'
-import { IClinic } from '@/types'
+
+import { Clinic } from '../../prisma/generated'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function fetchClinicBySubdomain(subdomain: string) {
@@ -22,7 +23,7 @@ export const useFetchClinic = (subdomain: string) => {
     })
   }, [subdomain])
 
-  const clinic = queryClient.getQueryData<IClinic>(['clinic', subdomain])
+  const clinic = queryClient.getQueryData<Clinic>(['clinic', subdomain])
 
   return {
     dehydratedState: dehydrate(queryClient),

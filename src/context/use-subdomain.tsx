@@ -1,9 +1,9 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
 
-import { IClinic } from '@/types'
+import { Clinic } from '../../prisma/generated'
 
 type ClinicContextType = {
-  clinic: IClinic | null
+  clinic: Clinic | null
 }
 
 const SubdomainContext = createContext<ClinicContextType | undefined>(undefined)
@@ -11,7 +11,7 @@ const SubdomainContext = createContext<ClinicContextType | undefined>(undefined)
 export const SubdomainProvider = ({
   children,
   clinic,
-}: PropsWithChildren<{ clinic: IClinic | null }>) => {
+}: PropsWithChildren<{ clinic: Clinic | null }>) => {
   return (
     <SubdomainContext.Provider value={{ clinic }}>
       {children}
