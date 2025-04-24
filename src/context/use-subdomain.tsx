@@ -1,3 +1,6 @@
+'use client'
+import { DehydratedState, HydrationBoundary } from '@tanstack/react-query'
+// eslint-disable-next-line prettier/prettier
 import { createContext, PropsWithChildren, useContext } from 'react'
 
 import { Clinic } from '../../prisma/generated'
@@ -11,10 +14,14 @@ const SubdomainContext = createContext<ClinicContextType | undefined>(undefined)
 export const SubdomainProvider = ({
   children,
   clinic,
-}: PropsWithChildren<{ clinic: Clinic | null }>) => {
+  dehydratedState,
+}: PropsWithChildren<{
+  clinic: Clinic | null
+  dehydratedState: DehydratedState
+}>) => {
   return (
     <SubdomainContext.Provider value={{ clinic }}>
-      {children}
+      <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
     </SubdomainContext.Provider>
   )
 }

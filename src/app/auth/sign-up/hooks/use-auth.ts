@@ -19,7 +19,7 @@ export function useAuth() {
     mutationFn: (provider: AuthProvider) =>
       signIn(provider, {
         redirect: false,
-        callbackUrl: `${window.location.origin}/auth/sign-up`,
+        callbackUrl: `${window.location.host}/auth/sign-up`,
       }),
     onError: (error, provider) => {
       toast({

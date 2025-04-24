@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
+import { queryClient } from '@/lib/react-query'
 
 import { createClinic, validateClinicDetails } from '../actions'
 import type { SignUpFormValues } from '../context/form-context'
@@ -46,13 +47,18 @@ export default function ClinicDetailsStep({
   const { mutateAsync: createClinicFn, isPending: isCreating } = useMutation({
     mutationKey: ['create-clinic'],
     mutationFn: createClinic,
-    onSuccess: () => {
+    onSuccess: (clinic) => {
       onSuccess()
 
       toast({
         title: 'Clínica criada com sucesso',
         description: 'Você pode agora acessar o painel da sua clínica',
       })
+
+      queryClient.setQueryData(
+        ['clinic-by-subdomain', clinic.subdomain],
+        clinic,
+      )
     },
     onError: (error) => {
       toast({

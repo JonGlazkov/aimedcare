@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { env } from "process"
-
+import { env } from 'process'
 
 export const api = axios.create({
   baseURL: env.NEXT_PUBLIC_API_URL,

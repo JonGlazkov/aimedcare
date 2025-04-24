@@ -54,6 +54,7 @@ export default function SignUpLayout() {
   }
 
   const handleFinish = () => {
+    router.prefetch('/app/dashboard')
     router.push('/app/dashboard')
     reset()
   }
@@ -61,9 +62,6 @@ export default function SignUpLayout() {
   return (
     <div className="flex size-3/4 flex-col items-center justify-center ">
       <div className="mr-auto">
-        {/* <h2 className="text-2xl font-semibold tracking-tight">
-          {getStepTitle()}
-          </h2> */}
         <p className="text-muted-foreground">
           Passo {currentStep + 1} de {count}
         </p>
@@ -87,16 +85,23 @@ export default function SignUpLayout() {
               </CarouselItem>
               <CarouselItem
                 onKeyDown={(e) => {
-                  if (e.key === 'Tab') {
-                    const googleButton = document.getElementById('google-login')
-                    const appleButton = document.getElementById('apple-login')
+                  const googleButton = document.getElementById('google-login')
+                  const appleButton = document.getElementById('apple-login')
 
-                    if (document.activeElement === googleButton) {
+                  if (e.key === 'Tab') {
+                    if (
+                      document.activeElement === googleButton &&
+                      !e.shiftKey
+                    ) {
+                      appleButton?.focus()
+                      e.preventDefault()
+                    }
+                    if (document.activeElement === appleButton && e.shiftKey) {
                       googleButton?.focus()
                       e.preventDefault()
                     }
-                    if (document.activeElement === appleButton) {
-                      appleButton?.focus()
+
+                    if (document.activeElement === appleButton && !e.shiftKey) {
                       e.preventDefault()
                     }
                   }
@@ -118,19 +123,7 @@ export default function SignUpLayout() {
               >
                 <AuthStep />
               </CarouselItem>
-              <CarouselItem
-              // onKeyDown={(e) => {
-              //   if (e.key === 'Enter') {
-              //     const submitButton =
-              //       document.getElementById('submit-button')
-
-              //     if (document.activeElement === submitButton) {
-              //       submitButton?.click()
-              //       e.preventDefault()
-              //     }
-              //   }
-              // }}
-              >
+              <CarouselItem>
                 <ClinicDetailsStep
                   onSuccess={() => {
                     api?.scrollNext(true)

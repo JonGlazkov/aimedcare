@@ -6,16 +6,17 @@ export class ClinicRepository implements IClinicRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   async findBySubdomain(subdomain: string): Promise<Clinic | null> {
-    return this.prisma.clinic.findFirstOrThrow({
+    const clinic = await this.prisma.clinic.findFirst({
       where: {
-        OR: [
-          {
-            subdomain,
-            customDomain: subdomain,
-          },
-        ],
+        subdomain,
       },
     })
+
+    if (!clinic) {
+      return null
+    }
+
+    return clinic
   }
 
   async findById(id: string): Promise<Clinic | null> {

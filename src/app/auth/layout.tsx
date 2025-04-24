@@ -1,4 +1,3 @@
-import { Hospital } from 'lucide-react'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { PropsWithChildren } from 'react'
@@ -19,11 +18,6 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
       <div className="grid min-h-screen grid-cols-2 antialiased">
         <div className="flex h-full flex-col justify-between border-r border-foreground/5 bg-muted text-muted-foreground">
           <div className="relative flex size-full items-center gap-3 bg-background-secondary text-lg font-medium text-foreground">
-            <div className="absolute left-8 top-8 flex w-full flex-row items-center gap-3">
-              <Hospital className="size-6" />
-              <span className="text-xl font-semibold">AI Medcare</span>
-            </div>
-
             <Image
               src="/aimedcare-logo2.png"
               alt="AI Medcare"

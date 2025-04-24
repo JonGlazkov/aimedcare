@@ -2,15 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getUrl } from '@/lib/get-url'
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const token = request.cookies.get('authjs.session-token')
   const pathname = request.nextUrl.pathname
-
   const baseUrl = request.nextUrl.origin
 
-  // if (!pathname.includes('/app') && token) {
-  //   return NextResponse.redirect(new URL(getUrl('/app/dashboard'), baseUrl))
-  // }
+  if (!pathname.includes('/app') && token) {
+    return NextResponse.redirect(new URL(getUrl('/app/dashboard'), baseUrl))
+  }
 
   if (pathname.includes('/app') && !token) {
     return NextResponse.redirect(new URL(getUrl('/auth/sign-in'), baseUrl))
@@ -18,5 +17,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|apple.png).*)'],
+  matcher: ['/app/:path*', '/auth/sign-in'],
 }

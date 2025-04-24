@@ -14,7 +14,10 @@ export default function SuccessStep() {
 
   const formData = getValues()
 
-  const domain = `https://${getSubdomain(formData.clinicName)}.${window.location.host.replace(':3000', '')}`
+  const host =
+    window.location.host === undefined ? 'localhost' : window.location.host
+
+  const domain = `https://${getSubdomain(formData.clinicName)}.${host.replace(':3000', '')}`
   localStorage.setItem('domain', domain)
 
   return (

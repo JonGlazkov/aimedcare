@@ -1,8 +1,11 @@
 import './globals.css'
 
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 
 import { AppProvider } from '@/components/providers/app-provider'
+import { SubdomainProvider } from '@/context/use-subdomain'
+import { useFetchClinic } from '@/hooks/use-fetch-clinic-data'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
@@ -31,20 +34,33 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const url = (await headers()).get('host') || 'localhost'
+  const subdomain = url.split('.')[0]
+
+  if (subdomain === 'localhost') return
+  const { dehydratedState, clinic } = await useFetchClinic(subdomain)
+
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="flex min-h-svh flex-col" suppressHydrationWarning>
-        <AppProvider>
-          <main className="flex flex-1 flex-col">{children}</main>
-        </AppProvider>
+        <main className="flex flex-1 flex-col">
+          <AppProvider>
+            <SubdomainProvider
+              clinic={clinic}
+              dehydratedState={dehydratedState}
+            >
+              {children}
+            </SubdomainProvider>
+          </AppProvider>
+        </main>
       </body>
     </html>
   )

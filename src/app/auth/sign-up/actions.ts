@@ -5,6 +5,7 @@ import { auth } from '@/lib/auth'
 import { getSubdomain } from '@/lib/get-subdomain'
 import { prisma } from '@/lib/prisma'
 
+import { Clinic } from '../../../../prisma/generated'
 import type { signUpFormSchema } from './context/form-context'
 
 const clinicDetailsValidationSchema = z.object({
@@ -39,7 +40,9 @@ export async function validateClinicDetails(
   }
 }
 
-export async function createClinic(formData: z.infer<typeof signUpFormSchema>) {
+export async function createClinic(
+  formData: z.infer<typeof signUpFormSchema>,
+): Promise<Clinic> {
   await new Promise((resolve) => setTimeout(resolve, 3000))
   const session = await auth()
   const { clinicName, clinicAddress, clinicPhone } = formData
@@ -64,7 +67,7 @@ export async function createClinic(formData: z.infer<typeof signUpFormSchema>) {
     throw new Error('Já existe uma clínica com esse nome')
   }
 
-  const { id: clinicId } = await prisma.clinic.create({
+  const clinic = await prisma.clinic.create({
     data: {
       name: clinicName,
       address: clinicAddress ?? null,
@@ -86,7 +89,7 @@ export async function createClinic(formData: z.infer<typeof signUpFormSchema>) {
   const existingAssociation = await prisma.userClinicAssociation.findFirst({
     where: {
       userId,
-      clinicId,
+      clinicId: clinic.id,
     },
   })
 
@@ -97,7 +100,9 @@ export async function createClinic(formData: z.infer<typeof signUpFormSchema>) {
   await prisma.userClinicAssociation.create({
     data: {
       userId,
-      clinicId,
+      clinicId: clinic.id,
     },
   })
+
+  return clinic
 }
